@@ -1,0 +1,79 @@
+<div id="box-0" class="box" >
+  <h4 class="box-header round-top">
+    Quick Information
+  </h4>         
+  <div class="box-container-toggle">
+    <div class="box-content">
+      <div>
+        <legend>
+          People
+        </legend>
+        <ul class="quick-info">
+          <li>
+          <span class="quick-info-left">Reporter: </span>
+          <span><a rel="popover" href="#">Michael Valladolid</a></span>
+          </li>
+          <li>
+          <span class="quick-info-left">Watches: </span>
+          <a id="watches_link" href="#" rel="popover" data-original-title="Watches" data-placement='bottom' data-content="Default">
+            <span class="badge badge-inverse">10</span>
+          </a>
+          <a href="#" style="float: right"><i class="icon-eye-open"></i></a>
+          <div id="watches_div" style="display:none">
+            <div>
+              <a>Michael Valladolid</a> <br/>
+              <a>John Doe</a>
+            </div>
+          </div>
+          </li>
+          <li> 
+          <span class="quick-info-left">Votes: </span>
+          <a id="votes_link" href="#", rel="popover" data-original-title="Votes" data-placement='bottom' data-content="Default">
+            <span class="badge badge-inverse">10</span>
+          </a>
+          <a href="#" style="float: right"><i class="icon-thumbs-up"></i></a>
+          <div id="votes_div" style="display:none">
+            <div>
+              <a>John Doe</a>
+            </div>
+          </div>
+          </li>
+        </ul>
+        <legend>
+          <span>
+            Dates
+          </span>
+        </legend>
+        <ul class="quick-info">
+          <li>
+          <span class="quick-info-left">Date Created: </span>
+          <span>15/May/13 4:01 AM</span>
+          </li>
+          <li>
+          <span class="quick-info-left">Last Updated: </span>
+          <span>15/May/13 4:01 AM</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="box-content" style="border-top: 1px solid #DDDDDD">
+      <button type="submit" class="btn-primary" style="width: 110px">Save</button> &nbsp;&nbsp;&nbsp;
+      <button type="submit" class="btn-primary" style="width: 110px">Add Task</button> 
+    </div>
+  </div>
+</div>
+
+<script>
+  $("#watches_link").popover({
+    html:true, 
+    content: function() {
+      return $("#watches_div").html();
+    }
+  });
+  $("#votes_link").popover({
+    html:true, 
+    content: function() {
+      return $("#votes_div").html();
+    }
+  });
+</script>
