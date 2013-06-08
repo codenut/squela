@@ -6,4 +6,9 @@ class WorkitemsController < ApplicationController
     end
   end
 
+  def view
+    respond_to do |format|
+      format.html
+    end
+  end
 end

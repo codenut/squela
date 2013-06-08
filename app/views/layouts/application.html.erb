@@ -2,18 +2,19 @@
 <html>
   <head>
     <title>Squela</title>
-    <link rel='stylesheet' medial='all' type='text/css' href='/css/bootstrap.css' />
-    <link rel='stylesheet' medial='all' type='text/css' href='/css/bootstrap-responsive.css' />
-    <link rel='stylesheet' medial='all' type='text/css' href='/css/squela.css' />
+    <%= stylesheet_link_tag 'bootstrap', :media => 'all' %>
+    <%= stylesheet_link_tag 'bootstrap-responsive', :media => 'all' %>
+    <%= stylesheet_link_tag 'squela', :media => 'all' %>
 
-    <script type='text/javascript' src='/js/jquery-1.9.1.min.js'></script>
-    <script type="text/javascript" src="/js/tooltip.js"></script>
-    <script type='text/javascript' src='/js/bootstrap.min.js'></script>
+    <%= javascript_include_tag 'jquery-1.9.1.min' %>
+    <%= csrf_meta_tags %>
   </head>
   <body>
     <%= render 'shared/header' %>
     <div class="container">
       <%= yield %>
     </div>
+    <%= javascript_include_tag 'tooltip' %>
+    <%= javascript_include_tag 'bootstrap' %>
   </body>
 </html>

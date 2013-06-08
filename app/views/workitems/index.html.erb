@@ -1,1 +1,109 @@
-hello world
+<div class="box-content">
+  <h4>
+    Search
+  </h4>
+  <br/>
+  <div id="box-0" class="box" >
+    <div class="box-header round-top">
+      <div>
+        <table width="100%">
+          <tr>
+            <td>
+              Contains text:&nbsp; <input type="text" style="width: 64%"/> 
+            </td>
+            <td>
+              Type: <select style="width: 70%">
+                <option>All</option>
+                <option>Story</option>
+                <option>Task</option>
+                <option>Defect</option>
+              </select>
+            </td>
+            <td>
+              Status: &nbsp;<select style="width: 70%">
+                <option>All</option>
+                <option>In Progress</option>
+                <option>Done</option>
+                <option>Resolved</option>
+              </select>
+            </td>
+            <td>
+              Rows: &nbsp; <select style="width: 60%">
+                <option>10</option>
+                <option>25</option>
+                <option>50</option>
+              </select> 
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>         
+    <div class="box-container-toggle">
+      <br/>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Summary</th>
+            <th>Owner</th>
+            <th>Status</th>
+          </tr>
+        </thead>   
+        <tbody>
+          <tr>
+            <td>Task</td>
+            <td class="center">
+              <a href="#">
+                Generate all ids for checking and validation.
+              </a>
+            </td>
+            <td class="center">Michael Valladolid</td>
+            <td class="center">In Progress</td>
+          </tr>
+          <tr>
+            <td>Defect</td>
+            <td class="center">
+              <a href="#">
+                Fix bugs on uploading files
+              </a>
+            </td>
+            <td class="center">Michael Valladolid</td>
+            <td class="center">Verified</td>
+          </tr> 
+          <tr>
+            <td>Defect</td>
+            <td class="center">
+              <a href="#">
+                Fix bugs on uploading files
+              </a>
+            </td>
+            <td class="center">Michael Valladolid</td>
+            <td class="center">Verified</td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <br/>
+      <div id="compact-pagination" style="margin: 10px; min-height: 30px">
+        <div style="float: left; ">
+          Showing 1 to 10 of 30 results
+        </div>
+        <div id="pagination" style="float: right">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%= stylesheet_link_tag 'simplePagination', :media => 'all' %>
+<%= javascript_include_tag 'jquery.simplePagination' %>
+
+<script>
+  $(function() {
+    $('#pagination').pagination({
+      items: 30,
+      itemsOnPage: 10,
+      cssStyle: 'compact-theme'
+    });
+  });
+</script>

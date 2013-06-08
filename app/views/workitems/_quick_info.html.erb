@@ -1,7 +1,7 @@
 <div id="box-0" class="box" >
-  <h4 class="box-header round-top">
+  <div class="box-header round-top">
     Quick Information
-  </h4>         
+  </div>         
   <div class="box-container-toggle">
     <div class="box-content">
       <div>
@@ -21,8 +21,9 @@
           <a href="#" style="float: right"><i class="icon-eye-open"></i></a>
           <div id="watches_div" style="display:none">
             <div>
-              <a>Michael Valladolid</a> <br/>
-              <a>John Doe</a>
+              <a>Michael Valladolid</a> <a><i style="margin-left: 20px; float: right" class="icon-trash"></i></a>
+              <br/>
+              <a>John Doe</a> <a><i style="margin-left: 20px; float: right" class="icon-trash"></i></a>
             </div>
           </div>
           </li>
@@ -34,7 +35,7 @@
           <a href="#" style="float: right"><i class="icon-thumbs-up"></i></a>
           <div id="votes_div" style="display:none">
             <div>
-              <a>John Doe</a>
+              <a>John Doe</a> <a><i style="margin-left: 20px; float: right" class="icon-trash"></i></a>
             </div>
           </div>
           </li>
@@ -46,7 +47,7 @@
         </legend>
         <ul class="quick-info">
           <li>
-          <span class="quick-info-left">Date Created: </span>
+          <span class="quick-info-left">Date Created: </sp}an>
           <span>15/May/13 4:01 AM</span>
           </li>
           <li>
@@ -57,23 +58,25 @@
       </div>
     </div>
     <div class="box-content" style="border-top: 1px solid #DDDDDD">
-      <button type="submit" class="btn-primary" style="width: 110px">Save</button> &nbsp;&nbsp;&nbsp;
-      <button type="submit" class="btn-primary" style="width: 110px">Add Task</button> 
+      <button type="submit" class="btn" style="width: 110px">Save</button> &nbsp;&nbsp;&nbsp;
+      <button type="submit" class="btn" style="width: 110px">Add Task</button> 
     </div>
   </div>
 </div>
 
 <script>
-  $("#watches_link").popover({
-    html:true, 
-    content: function() {
-      return $("#watches_div").html();
-    }
-  });
-  $("#votes_link").popover({
-    html:true, 
-    content: function() {
-      return $("#votes_div").html();
+  $(document).ready(function() {
+    init_popover("#watches_link", "#watches_div");
+    init_popover("#votes_link", "#votes_div");
+    function init_popover(link, div) {
+      $(link).popover({
+        html:true, 
+        content: function() {
+          return $(div).html();
+        }
+      }).on('click', function(e) {
+        e.preventDefault(); 
+      });
     }
   });
 </script>

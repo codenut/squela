@@ -68,7 +68,8 @@
             <b class="caret white-caret"></b>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="#">Message 1</a></li>
+            <li><%= link_to 'Index', {:controller => :workitems, :action => :index} %></li>
+            <li><%= link_to 'Show', {:controller => :workitems, :action => :view} %></li>
             <li class="divider"></li>
             <li><a href="#">Older messages...</a></li>
           </ul>
