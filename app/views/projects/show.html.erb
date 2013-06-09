@@ -1,0 +1,34 @@
+<div id="box-0" class="box">
+  <div class="box-header round-top">
+    Project - <strong><%= @project.name %></strong>
+  </div>         
+  <div class="box-container-toggle">
+    <div class="box-content">
+      <div class="row">
+        <div class="span6">
+          <strong>
+            Welcome to your project
+          </strong>
+          <br/>
+          <br/>
+          Everything you need to know about how your project is running is tracked on this page. As your project evolves, the information will be updated. Use the tabs on the left to navigate within your project.
+          <br/>
+          <br/>
+          Change the <%= link_to 'project description', {:controller => :projects, :action => :edit}, 'data-toggle' => :modal %> details about your project.
+        </div>
+        <div class="span5 well">
+          <div style="margin-bottom: -5px">
+            <strong>
+              Get project started 
+            </strong>
+          </div>
+          </br>
+          <div style="margin-bottom: 10px">
+            Create your first workitem by clicking on the "Create workitem" button.
+          </div>
+          <a href="#" class="btn">Create Workitem</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

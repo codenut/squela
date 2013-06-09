@@ -1,0 +1,18 @@
+<div class="box-container-toggle">
+  <% if flash[:notice] %>
+    <div class="box-content">
+      <div class="alert alert-success">
+        <a class="close" data-dismiss="alert" href="#">&times;</a>
+        <%= flash[:notice] %>
+      </div>
+    </div>
+  <%end%>
+  <% if flash[:error] %>
+    <div class="box-content">
+      <div class="alert alert-error">
+        <a class="close" data-dismiss="alert" href="#">&times;</a>
+        <%= flash[:error] %>
+      </div>
+    </div>
+  <%end%>
+</div>

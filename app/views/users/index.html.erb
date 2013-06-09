@@ -1,0 +1,151 @@
+<div class="box-content">
+  <div style="float: left">
+    <h4 class="width: 100px">
+      Search Users 
+    </h4>
+  </div>
+  <div class="btn-group" style="float: right">
+    <a href="#create_user" class="btn" data-toggle="modal"><i class="icon-envelope"></i>&nbsp; Invite User</a>
+    <a href="#create_user" class="btn" data-toggle="modal"><i class="icon-plus"></i>&nbsp; Add User</a>
+  </div>
+  <br/>
+  <br/>
+  <br/>
+  <div id="box-0" class="box" >
+    <div class="box-header round-top">
+      <div>
+        <table width="100%">
+          <tr>
+            <td>
+              Name: &nbsp; <input type="text" style="width: 64%"/> 
+            </td>
+            <td>
+              Type: <select style="width: 70%">
+                <option>All</option>
+                <option>Story</option>
+                <option>Task</option>
+                <option>Defect</option>
+              </select>
+            </td>
+            <td>
+              Status: &nbsp;<select style="width: 70%">
+                <option>All</option>
+                <option>In Progress</option>
+                <option>Done</option>
+                <option>Resolved</option>
+              </select>
+            </td>
+            <td>
+              Rows: &nbsp; <select style="width: 60%">
+                <option>10</option>
+                <option>25</option>
+                <option>50</option>
+              </select> 
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>         
+    <div class="box-container-toggle">
+      <br/>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Full Name</th>
+            <th>Login Details</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>   
+        <tbody>
+          <tr>
+            <td><a href="#"><i class="icon-user"></i>&nbsp;jdoe@gmail.com</a></td>
+            <td class="center">
+              <a href="#">
+                Michael Valladolid
+              </a>
+            </td>
+            <td class="center">
+              Count: <span class="badge badge-info">10</span><br/>
+              Last:&nbsp;&nbsp;&nbsp;&nbsp; Today at 10:05 PM
+            </td>
+            <td class="center">In Progress</td>
+            <td class="center">
+              <a href="#"><i class="icon-pencil"></i></a>&nbsp;
+              <a href="#"><i class="icon-trash"></i></a>
+            </td>
+          </tr>
+          <tr>
+            <td><a href="#"><i class="icon-user"></i>&nbsp;mikevalladolid@gmail.com</a></td>
+            <td class="center">
+              <a href="#">
+                Michael Valladolid
+              </a>
+            </td>
+            <td class="center">
+              Count: <span class="badge badge-info">10</span><br/>
+              Last:&nbsp;&nbsp;&nbsp;&nbsp; Today at 10:05 PM
+            </td>
+            <td class="center">In Progress</td>
+            <td class="center">
+              <a href="#"><i class="icon-pencil"></i></a>&nbsp;
+              <a href="#"><i class="icon-trash"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br/>
+      <div id="compact-pagination" style="margin: 10px; min-height: 30px">
+        <div style="float: left; ">
+          Showing 1 to 10 of 30 results
+        </div>
+        <div id="pagination" style="float: right">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%= stylesheet_link_tag 'simplePagination', :media => 'all' %>
+<%= javascript_include_tag 'jquery.simplePagination' %>
+
+<script>
+  $(function() {
+    $('#pagination').pagination({
+      items: 30,
+      itemsOnPage: 10,
+      cssStyle: 'compact-theme'
+    });
+  });
+</script>
+
+<div id="create_user" class="modal hide">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" >&times;</button>
+    <h3>New User</h3>
+  </div>
+  <div class="modal-body">
+    <table width="80%" align="center">
+      <tr>
+        <td>Email:</td>
+        <td><input type="text" style="width: 80%"/></td>
+      </tr>
+      <tr>
+        <td>Password:</td>
+        <td><input type="password" style="width: 80%"/></td>
+      </tr>
+      <tr>
+        <td>Confirm Password:</td>
+        <td><input type="password" style="width: 80%"/></td>
+      </tr>
+      <tr>
+        <td>Full Name:</td>
+        <td><input type="text" style="width: 80%"/></td>
+      </tr>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
+    <a href="#" class="btn btn-primary">Save</a>
+  </div>
+</div>

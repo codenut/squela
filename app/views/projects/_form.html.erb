@@ -1,0 +1,30 @@
+<div id="myModal" class="modal hide">
+  <div>
+    <%= form_for @project do |f| %>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" >&times;</button>
+        <h3>New Project</h3>
+      </div>
+      <div class="modal-body">
+        <table align="center" width="80%"> 
+          <tr>
+            <td>Project Name: </td>
+            <td><%= f.text_field :name, :style => 'width: 100%' %></td>
+          </tr>
+          <tr>
+            <td>URL: </td>
+            <td><%= f.text_field :url, :style => 'width: 100%' %></td>
+          </tr>
+          <tr>
+            <td>Description:</td>
+            <td><%= f.text_area :description , :style => 'width: 100%', :rows => '5' %></textarea></td>
+          </try>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
+        <%= f.submit 'Save', :class => 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>

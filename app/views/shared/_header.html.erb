@@ -27,8 +27,10 @@
             <i class="icon-asterisk icon-white"></i><span class="caret white-caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="#">Personal Info</a></li>
-            <li><a href="#">Preferences</a></li>
+            <li><a href="#">Projects</a></li>
+            <li><%= link_to 'Workitems', {:controller => :workitems, :action => :index} %></li>
+            <li class="divider"></li>
+            <li><%= link_to 'User Management', {:controller => :users, :action => :index} %></a></li>
           </ul>
           </li>
 
@@ -37,8 +39,8 @@
             <i class="icon-user icon-white"></i><span class="caret white-caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="#">Personal Info</a></li>
-            <li><a href="#">Preferences</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Assigned Workitems</a></li>
           </ul>
           </li>
         </ul>
@@ -59,7 +61,7 @@
           <ul class="dropdown-menu">
             <li><a href="#">Message 1</a></li>
             <li class="divider"></li>
-            <li><a href="#">Older messages...</a></li>
+            <li><%= link_to 'Create Project', {:controller => :projects, :action => :new}, 'data-toggle' => :modal %></li>
           </ul>
           </li>
           <li class="dropdown">

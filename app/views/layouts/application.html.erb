@@ -12,9 +12,13 @@
   <body>
     <%= render 'shared/header' %>
     <div class="container">
+      <%= render 'shared/message' %>
       <%= yield %>
     </div>
     <%= javascript_include_tag 'tooltip' %>
     <%= javascript_include_tag 'bootstrap' %>
+    <%= javascript_include_tag 'squela' %>
+    <div id="modal_div">
+    </div>
   </body>
 </html>
