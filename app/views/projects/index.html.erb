@@ -1,0 +1,78 @@
+<div class="box-content">
+  <div style="float: left">
+    <h4 class="width: 100px">
+      Search Projects
+    </h4>
+  </div>
+  <div class="btn-group" style="float: right">
+    <%= link_to new_project_path, :class => "btn ajax-modal" do %>
+      <i class="icon-plus"></i>&nbsp;Create Project
+    <% end %>
+  </div>
+  <br/>
+  <br/>
+  <br/>
+  <div id="box-0" class="box" >
+    <div class="box-header round-top">
+      <div>
+        <table width="100%">
+          <tr>
+            <td>
+              Contains text:&nbsp; <input type="text" style="width: 64%"/> 
+            </td>
+            <td>
+              Rows: &nbsp; <select style="width: 60%">
+                <option>10</option>
+                <option>25</option>
+                <option>50</option>
+              </select> 
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>         
+    <div class="box-container-toggle">
+      <br/>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>URL</th>
+          </tr>
+        </thead>   
+        <tbody>
+          <% for project in @projects %>
+            <tr>
+              <td><%= link_to h(project.name), project_path(project) %></td>
+              <td class="center"><%= link_to h(project.url) do %><%= project.url %><% end %></td>
+              <td class="center">
+                <%= link_to edit_project_path(project), :class => "ajax-modal" do %><i class="icon-pencil"></i><% end %>&nbsp;
+                <a href="#"><i class="icon-trash"></i></a>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <br/>
+      <div id="compact-pagination" style="margin: 10px; min-height: 30px">
+        <div style="float: left; ">
+          Showing 1 to 10 of 30 results
+        </div>
+        <div id="pagination" style="float: right">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%= stylesheet_link_tag 'simplePagination', :media => 'all' %>
+<%= javascript_include_tag 'jquery.simplePagination' %>
+
+<script>
+  $(function() {
+    $('#pagination').pagination({
+      items: 30,
+      itemsOnPage: 10,
+      cssStyle: 'compact-theme'
+    });
+  });
+</script>

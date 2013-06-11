@@ -4,36 +4,27 @@
   </div>         
   <div class="box-container-toggle">
     <div class="comment-box">
-      <div class="box-content" style="padding: 0px;">
-        <div style="border-bottom: 1px solid #DDDDDD; padding: 10px 10px 10px 20px">
-          <div style="padding-bottom: 5px"> 
-            <a><i class="icon-user"></i>&nbsp;&nbsp;John Doe</a> added a comment
-            <span style="float: right;">27/May/13 12:36 PM</span>
-          </div>
-          <div>
-            Joined Sample Sprint 1 21 days 10 hours 20 minutes ago</br>
-            To Do to Done 9 days 1 hours 45 minutes ago
-          </div>
-        </div>
-      </div>
-      <div class="box-content" style="padding: 0px;">
-        <div style="border-bottom: 1px solid #DDDDDD; padding: 10px 10px 10px 20px">
-          <div style="padding-bottom: 5px"> 
-            <a><i class="icon-user"></i>&nbsp;&nbsp;John Doe</a> added a comment 
-            <span style="float: right;">27/May/13 12:36 PM</span>
-          </div>
-          <div>
-            Joined Sample Sprint 1 21 days 10 hours 20 minutes ago</br>
-            To Do to Done 9 days 1 hours 45 minutes ago
+      <% for comment in @workitem.comments %>
+        <div class="box-content" style="padding: 0px;">
+          <div style="border-bottom: 1px solid #DDDDDD; padding: 10px 10px 10px 20px">
+            <div style="padding-bottom: 5px"> 
+              <a><i class="icon-user"></i>&nbsp;&nbsp;<%= comment.user.fullname %></a> added a comment
+              <span style="float: right;"><%= comment.created_at.strftime("%B %d, %Y %I:%M %p") %></span>
+            </div>
+            <div>
+              Joined Sample Sprint 1 21 days 10 hours 20 minutes ago</br>
+              To Do to Done 9 days 1 hours 45 minutes ago
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
     </div>
     <div class="box-content" style="padding: 0px;">
       <div style="padding: 10px 10px 20px 20px">
         <div>
-          <textarea style="width: 98%" rows="3"></textarea>
-          <button class="btn" style="float: right;">Comment</button>
+          <textarea style="width: 98%" rows="3" id='description'></textarea>
+          <a class="btn" style="float: right;" id='comment-link'>Comment</a>
+          <%= image_tag 'spinner_small.gif', :style => 'display:none; float:right', :id => 'spinner' %> 
           </br>
           </br>
         </div>
@@ -41,3 +32,31 @@
     </div>
   </div>
 </div>
+<script>
+  $('#comment-link').click(function() {
+    $('#comment-link').hide();
+    $('#spinner').show();
+    $.ajax({
+      type: 'POST',
+      data: { comment: {description: $('#description').val()} },
+      url: '<%= comments_path %>',
+      success: function(data) {
+        if($.type(data) === 'object') {
+          for(var key in data) {
+            var e = $('#' + key);
+            e.addClass('required_field'); 
+            e.focus();
+          }
+          } else {
+          $('#description').removeClass('required_field'); 
+          $('#description').val('');
+          $('.comment-box').append(data).children(':last').hide().fadeIn(2000);
+        }
+      },
+      complete: function() {
+        $('#comment-link').show();
+        $('#spinner').hide();
+      }
+    });
+  });
+</script>

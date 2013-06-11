@@ -14,7 +14,7 @@
           Everything you need to know about how your project is running is tracked on this page. As your project evolves, the information will be updated. Use the tabs on the left to navigate within your project.
           <br/>
           <br/>
-          Change the <%= link_to 'project description', {:controller => :projects, :action => :edit}, 'data-toggle' => :modal %> details about your project.
+          Change the <%= link_to 'project description', {:controller => :projects, :action => :edit}, :class => 'ajax-modal' %> details about your project.
         </div>
         <div class="span5 well">
           <div style="margin-bottom: -5px">
@@ -26,7 +26,7 @@
           <div style="margin-bottom: 10px">
             Create your first workitem by clicking on the "Create workitem" button.
           </div>
-          <a href="#" class="btn">Create Workitem</a>
+          <%= link_to 'Create Workitem', new_workitem_path , :class => :btn %>
         </div>
       </div>
     </div>

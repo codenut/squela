@@ -7,6 +7,7 @@
     <%= stylesheet_link_tag 'squela', :media => 'all' %>
 
     <%= javascript_include_tag 'jquery-1.9.1.min' %>
+    <%= javascript_include_tag 'rails' %>
     <%= csrf_meta_tags %>
   </head>
   <body>
@@ -19,6 +20,11 @@
     <%= javascript_include_tag 'bootstrap' %>
     <%= javascript_include_tag 'squela' %>
     <div id="modal_div">
+    </div>
+    <div id="my_modal" class="modal hide">
+      <div id="modal_content">
+
+      </div>
     </div>
   </body>
 </html>

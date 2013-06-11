@@ -6,9 +6,11 @@
     <br/>
   </div>
   <div class="span9">
-    <%= render 'details' %>
-    <%= render 'description' %>
-    <%= render 'discussions' %>
+    <%= form_for @workitem do |f| %>
+      <%= render 'details' %>
+      <%= render 'description' %>
+      <%= render 'discussions' %>
+    <% end %>
   </div>
   <div class="span3" >
     <%= render 'quick_info' %>

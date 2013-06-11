@@ -11,15 +11,39 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130609080045) do
+ActiveRecord::Schema.define(:version => 20130611094015) do
+
+  create_table "comments", :force => true do |t|
+    t.text     "description"
+    t.integer  "user_id"
+    t.integer  "workitem_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "projects", :force => true do |t|
     t.string   "name"
     t.string   "url"
     t.string   "description"
-    t.boolean  "is_deleted"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.boolean  "is_deleted",  :default => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "email"
+    t.string   "password"
+    t.string   "fullname"
+    t.integer  "type_id"
+    t.integer  "role_id"
+    t.boolean  "delete_flag", :default => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  create_table "workitems", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end
