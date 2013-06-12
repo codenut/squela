@@ -1,7 +1,14 @@
 <div class="box-content">
-  <h4>
-    Search Workitems
-  </h4>
+  <div style="float: left">
+    <h4 class="width: 100px">
+      Search Workitems
+    </h4>
+  </div>
+  <div class="btn-group" style="float: right">
+    <%= link_to new_workitem_path, :class => 'btn' do %><i class="icon-plus"></i>&nbsp; Add Workitem<%end%>
+  </div>
+  <br/>
+  <br/>
   <br/>
   <div id="box-0" class="box" >
     <div class="box-header round-top">
@@ -46,41 +53,24 @@
             <th>Type</th>
             <th>Summary</th>
             <th>Owner</th>
+            <th>Priority</th>
             <th>Status</th>
           </tr>
         </thead>   
         <tbody>
-          <tr>
-            <td>Task</td>
-            <td class="center">
-              <a href="#">
-                Generate all ids for checking and validation.
-              </a>
-            </td>
-            <td class="center">Michael Valladolid</td>
-            <td class="center">In Progress</td>
-          </tr>
-          <tr>
-            <td>Defect</td>
-            <td class="center">
-              <a href="#">
-                Fix bugs on uploading files
-              </a>
-            </td>
-            <td class="center">Michael Valladolid</td>
-            <td class="center">Verified</td>
-          </tr> 
-          <tr>
-            <td>Defect</td>
-            <td class="center">
-              <a href="#">
-                Fix bugs on uploading files
-              </a>
-            </td>
-            <td class="center">Michael Valladolid</td>
-            <td class="center">Verified</td>
-          </tr>
-
+          <% for workitem in @workitems %>
+            <tr>
+              <td><%= workitem.type_id %></td>
+              <td class="center">
+                <%= link_to workitem do %>
+                  <%= workitem.summary %>
+                <% end %>
+              </td>
+              <td class="center"><%= workitem.user.fullname %></td>
+              <td class="center"><%= workitem.priority_id %> </td>
+              <td class="center"><%= workitem.status_id %> </td>
+            </tr>
+          <% end %>
         </tbody>
       </table>
 

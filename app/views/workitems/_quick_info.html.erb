@@ -21,22 +21,27 @@
           <a href="#" style="float: right"><i class="icon-eye-open"></i></a>
           <div id="watches_div" style="display:none">
             <div>
-              <a>Michael Valladolid</a> <a><i style="margin-left: 20px; float: right" class="icon-trash"></i></a>
+              <a>Michael Valladolid</a> <a><i style="margin-left: 20px; float: right" class="icon-remove"></i></a>
               <br/>
-              <a>John Doe</a> <a><i style="margin-left: 20px; float: right" class="icon-trash"></i></a>
+              <a>John Doe</a> <a><i style="margin-left: 20px; float: right" class="icon-remove"></i></a>
             </div>
           </div>
           </li>
           <li> 
           <span class="quick-info-left">Votes: </span>
           <a id="votes_link" href="#", rel="popover" data-original-title="Votes" data-placement='bottom' data-content="Default">
-            <span class="badge badge-inverse">10</span>
+            <span id="vote_count" class="badge badge-inverse"><%= @workitem.votes.size %></span>
           </a>
           <a href="#" style="float: right"><i class="icon-thumbs-up"></i></a>
           <div id="votes_div" style="display:none">
-            <div>
-              <a>John Doe</a> <a><i style="margin-left: 20px; float: right" class="icon-trash"></i></a>
-            </div>
+            <% for voter in @workitem.votes %>
+              <div id="vote_<%= voter.id %>">
+                <%= link_to h(voter.user.fullname), user_path(voter.user) %>
+                <a id="<%= vote_path(voter) %>" class="unvote">
+                  <i style="margin-left: 20px; float: right" class="icon-remove "></i>
+                </a>
+              </div>
+            <% end %>
           </div>
           </li>
         </ul>
@@ -58,7 +63,8 @@
       </div>
     </div>
     <div class="box-content" style="border-top: 1px solid #DDDDDD">
-      <button type="submit" class="btn" style="width: 110px">Save</button> &nbsp;&nbsp;&nbsp;
+      <%= f.submit 'Save', :class => :btn, :style => "width: 110px", :id => :submit %>&nbsp;&nbsp;&nbsp;
+      <%= image_tag 'spinner_small.gif', :style => 'display:none', :id => 'spinner' %> 
       <button type="submit" class="btn" style="width: 110px">Add Task</button> 
     </div>
   </div>
@@ -68,15 +74,26 @@
   $(document).ready(function() {
     init_popover("#watches_link", "#watches_div");
     init_popover("#votes_link", "#votes_div");
-    function init_popover(link, div) {
+    function init_popover(link, div) {
       $(link).popover({
         html:true, 
         content: function() {
           return $(div).html();
         }
-      }).on('click', function(e) {
+        }).on('click', function(e) {
         e.preventDefault(); 
       });
     }
+  });
+  $(document).on('click', '.unvote', function() {
+    $.ajax({
+      type: 'DELETE',
+      url: this.id,
+      success: function(data) {
+        $('#vote_' + data['id']).remove();
+      },
+      complete: function(data) {
+      }
+    });
   });
 </script>

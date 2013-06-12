@@ -6,41 +6,45 @@
     <div class="box-content">
       <div class="row-fluid">
         <div class="span12" >
-          <label class="story-label">Summary: </label>
-          <input type="text" value="abc" style="width: 82%;" />
+          <label class="story-label">Summary: <span class="required">*</span></label>
+          <%= f.text_field :summary, :style => "width: 82%;" %>
           <br/><br/>
         </div>
         <div class="span6" style="padding: 0px; margin: 0px">
           <label class="story-label">Type: </label>
-          <select class="story-field" ><option>Test</option> </select>
+          <%= f.select :type_id, 
+                       options_for_select([["Story", 1], ["Task", 2], ["Defect", 3]]), 
+                       {}, 
+                       :class => "story-field" %>
           <br/><br/>
           <label class="story-label">Status: </label>
-          <select class="story-field" ><option>Completed</option> </select>
+          <%= f.select :status_id,
+                       options_for_select([["New", 1], ["In Progress", 2], ["Done", 3]]),
+                       {},
+                       :class => "story-field" %>
           <br/><br/>
           <label class="story-label">Owned by: </label>
-          <input type="text" class="story-field" />
+          <%= f.text_field :user_id, :class => "story-field" %>
           <label class="story-label">Tags: </label>
-          <input type="text" class="story-field" />
+          <%= f.text_field :tags, :class => "story-field" %>
         </div>
         <div class="span6" style="padding: 0px 0px 0px 10px; margin: 0px">
           <label class="story-label">Points: </label>
-          <select class="story-field" >
-            <option>1</option> 
-            <option>2</option> 
-            <option>3</option> 
-          </select>
+          <%= f.select :points, 
+                       options_for_select([['1', 1], ['2', 2], ['3', 3]]), 
+                       {}, 
+                       :class => "story-field" %>
           <br/><br/>
           <label class="story-label">Priority: </label>
-          <select class="story-field" >
-            <option>Low</option> 
-            <option>Medium</option> 
-            <option>High</option> 
-          </select>
+          <%= f.select :priority_id, 
+                       options_for_select([["Low", 1], ["Medium",  2], ["High", 3]]),
+                       {},
+                       :class => "story-field" %>
           <br/><br/>
           <label class="story-label">Estimate: </label>
-          <input type="text" class="story-field" />
+          <%= f.text_field :estimate, :class => "story-field" %>
           <label class="story-label">Due date: </label>
-          <input type="text" class="story-field" />
+          <%= f.text_field :due_date, :class => "story-field" %>
         </div>
       </div>
     </div>

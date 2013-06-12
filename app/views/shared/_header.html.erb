@@ -28,9 +28,9 @@
           </a>
           <ul class="dropdown-menu">
             <li><%= link_to 'Projects', projects_path %>
-            <li><%= link_to 'Workitems', {:controller => :workitems, :action => :index} %></li>
+            <li><%= link_to 'Workitems', workitems_path %></li>
             <li class="divider"></li>
-            <li><%= link_to 'User Management', {:controller => :users, :action => :index} %></a></li>
+            <li><%= link_to 'User Management', users_path %></a></li>
           </ul>
           </li>
           <li class="divider-vertical"></li>
@@ -62,6 +62,17 @@
           <ul class="dropdown-menu">
             <li><label>Current Project</label></li>
             <li><a href="#">Message 1</a></li>
+            <% if @my_projects.size > 0 %>
+              <li class="divider"></li>
+              <li><label>Recent Project</label></li>
+              <% @my_projects.each_with_index do |proj, idx| %>
+                <li><%= link_to h(proj.name), proj %></a></li>
+                <% break if idx == 4 %>
+              <% end %>
+              <% if @my_projects.size == 6 %>
+                <li><%= link_to 'more...', projects_path %></li>
+              <% end %>
+            <% end %>
             <li class="divider"></li>
             <li><%= link_to 'Create Project', new_project_path, :class => 'ajax-modal' %></li>
           </ul>
@@ -72,10 +83,19 @@
             <b class="caret white-caret"></b>
           </a>
           <ul class="dropdown-menu">
-            <li><%= link_to 'Index', workitems_path %></li>
-            <li><%= link_to 'Show', {:controller => :workitems, :action => :view} %></li>
-            <li class="divider"></li>
-            <li><a href="#">Older messages...</a></li>
+            <li><%= link_to 'Search for Workitems', workitems_path %></li>
+            <li><%= link_to 'Create Workitem', new_workitem_path %></li>
+            <% if @my_workitems.size > 0 %>
+              <li class="divider"></li>
+              <li><label>Recent Workitems</label></li>
+              <% @my_workitems.each_with_index do |wori, idx| %>
+                <li><%= link_to h(wori.summary), wori %></li>
+                <% break if idx == 4 %> 
+              <% end %>
+              <% if @my_workitems.size == 6 %>
+                <li><%= link_to 'more...', workitems_path %></li>
+              <% end %>
+            <% end %>
           </ul>
           </li>
         </ul>

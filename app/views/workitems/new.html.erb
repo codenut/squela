@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="span9" >
+    <h4>
+      Workitem <% if !@workitem.id.nil? %> <%= @workitem.id %> <% else %> < * > <% end %>
+    </h4>
+    <br/>
+  </div>
+  <%= form_for @workitem, :remote => true do |f| %>
+    <div class="span9">
+      <%= render :partial => 'details', :locals => {:f => f} %>
+      <%= render :partial => 'description', :locals => {:f => f} %>
+      <% if !current_page?(new_workitem_path) %>
+        <%= render 'discussions' %>
+      <% end %>
+    </div>
+    <div class="span3" >
+      <%= render :partial => 'quick_info', :locals => {:f => f} %>
+    </div>
+  <% end %>
+</div>
+<script>
+  $(document).ready(function() {
+    $('[class$="workitem"]').
+    bind('ajax:error', function(evt, xhr, status, error){
+    })
+    .bind('ajax:success', function(evt, xhr, status, error) {
+      var cnt = 0;
+      if(xhr['errors']) {
+        for(key in xhr['errors']) {
+          var e = $('#workitem_' + key)
+          e.addClass('required_field');
+          e.focus();
+          cnt += 1;
+        }
+      }
+    })
+    .bind('ajax:beforeSend', function() {
+      $('#submit').hide();
+      $('#spinner').show();
+    })
+    .bind('ajax:complete', function() {
+      $('#spinner').hide();
+      $('#submit').show();
+    });
+  });
+</script>

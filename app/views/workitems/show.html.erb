@@ -7,7 +7,7 @@
   </div>
   <div class="span9">
     <%= form_for @workitem do |f| %>
-      <%= render 'details' %>
+      <%= render :partial => 'details', :local => %>
       <%= render 'description' %>
       <%= render 'discussions' %>
     <% end %>

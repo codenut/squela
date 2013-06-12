@@ -45,14 +45,14 @@
           e.focus();
         cnt += 1;
       }
-      if(cnt > 0) {
-        $('#spinner').hide();
-        $('#submit').show();
-      }
-    }).
-    bind('ajax:beforeSend', function() {
+    })
+    .bind('ajax:beforeSend', function() {
       $('#submit').hide();
       $('#spinner').show();
+    })
+    .bind('ajax:complete', function() {
+      $('#spinner').hide();
+      $('#submit').show();
     });
   });
 </script>
