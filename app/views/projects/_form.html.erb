@@ -5,6 +5,9 @@
       <h3><%= @label %></h3>
     </div>
     <div class="modal-body">
+      <div class="alert alert-error fade in hide" id="ajax-error" >
+        Oops! Something wrong happened. Please load the page.
+      </div>
       <table align="center" width="80%"> 
         <tr>
           <td>Project Name: <span class="required">*</span></td>
@@ -22,33 +25,34 @@
     </div>
     <div class="modal-footer">
       <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
-      <%= f.submit 'Save', :class => 'btn btn-primary', :id => :submit %>
-      <%= image_tag 'spinner_small.gif', :style => 'display:none', :id => 'spinner' %> 
+      <%= f.submit 'Save', :class => 'btn btn-primary', :id => :submit, 'data-loading-text' => 'Loading...'%>
     </div>
   <% end %>
 </div>
-
 <script>
-  $('#submit').click(function() {
-    $('#submit').hide();
-    $('#spinner').show();
-    $.ajax({
-      type: 'POST',
-      data: $("[class$='project']").serialize(),
-      url: '<%= projects_path %>',
-      success: function(data) {
-        if($.type(data) === 'object') {
-          for(var key in data) {
-            var e = $('#project_' + key);
-            e.addClass('required_field'); 
-            e.focus();
-          }
-        } 
-      },
-      complete: function(data) {
-        $('#submit').show();
-        $('#spinner').hide();
+  $(document).ready(function() {
+    $("[class$='project']")
+    .bind('ajax:error', function(evt, xhr, status, error){
+      var error = $('#ajax-error');
+      error.show(); 
+      window.setTimeout(function() { error.alert('close') }, 5000);
+    })
+    .bind('ajax:success', function(evt, xhr, status, error) {
+      if($.type(xhr) === 'object') {
+        var cnt = 0;
+        for(key in xhr) {
+          var e = $('#project_' + key)
+          e.addClass('required_field');
+          if(cnt == 0) e.focus();
+          cnt += 1;
+        }
       }
+    })
+    .bind('ajax:beforeSend', function() {
+      $('#submit').button('loading');
+    })
+    .bind('ajax:complete', function() {
+      $('#submit').button('reset');
     });
   });
 </script>

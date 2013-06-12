@@ -36,9 +36,9 @@ ActiveRecord::Schema.define(:version => 20130612102358) do
     t.string   "fullname"
     t.integer  "type_id"
     t.integer  "role_id"
-    t.boolean  "delete_flag", :default => false
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.boolean  "is_deleted", :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "votes", :force => true do |t|

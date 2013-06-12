@@ -59,63 +59,45 @@
           </tr>
         </thead>   
         <tbody>
-          <tr>
-            <td><a href="#"><i class="icon-user"></i>&nbsp;jdoe@gmail.com</a></td>
-            <td class="center">
-              <a href="#">
-                Michael Valladolid
-              </a>
-            </td>
-            <td class="center">
-              Count: <span class="badge badge-info">10</span><br/>
-              Last:&nbsp;&nbsp;&nbsp;&nbsp; Today at 10:05 PM
-            </td>
-            <td class="center">In Progress</td>
-            <td class="center">
-              <a href="#"><i class="icon-pencil"></i></a>&nbsp;
-              <a href="#"><i class="icon-trash"></i></a>
-            </td>
-          </tr>
-          <tr>
-            <td><a href="#"><i class="icon-user"></i>&nbsp;mikevalladolid@gmail.com</a></td>
-            <td class="center">
-              <a href="#">
-                Michael Valladolid
-              </a>
-            </td>
-            <td class="center">
-              Count: <span class="badge badge-info">10</span><br/>
-              Last:&nbsp;&nbsp;&nbsp;&nbsp; Today at 10:05 PM
-            </td>
-            <td class="center">In Progress</td>
-            <td class="center">
-              <a href="#"><i class="icon-pencil"></i></a>&nbsp;
-              <a href="#"><i class="icon-trash"></i></a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <br/>
-      <div id="compact-pagination" style="margin: 10px; min-height: 30px">
-        <div style="float: left; ">
-          Showing 1 to 10 of 30 results
-        </div>
-        <div id="pagination" style="float: right">
+          <% for user in @users %> 
+            <tr>
+              <td><%= link_to user do %><i class="icon-user"></i>&nbsp;<%= user.email %><% end %></td>
+              <td class="center">
+                <%= link_to h(user.fullname), user %>
+              </td>
+              <td class="center">
+                Count: <span class="badge badge-info">10</span><br/>
+                Last:&nbsp;&nbsp;&nbsp;&nbsp; Today at 10:05 PM
+              </td>
+              <td class="center"><%= user.type_id %></td>
+              <td class="center">
+                <a href="#"><i class="icon-pencil"></i></a>&nbsp;
+                <a href="#"><i class="icon-trash"></i></a>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+        <br/>
+        <div id="compact-pagination" style="margin: 10px; min-height: 30px">
+          <div style="float: left; ">
+            Showing 1 to 10 of 30 results
+          </div>
+          <div id="pagination" style="float: right">
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<%= stylesheet_link_tag 'simplePagination', :media => 'all' %>
-<%= javascript_include_tag 'jquery.simplePagination' %>
+  <%= stylesheet_link_tag 'simplePagination', :media => 'all' %>
+  <%= javascript_include_tag 'jquery.simplePagination' %>
 
-<script>
-  $(function() {
-    $('#pagination').pagination({
-      items: 30,
-      itemsOnPage: 10,
-      cssStyle: 'compact-theme'
+  <script>
+    $(function() {
+      $('#pagination').pagination({
+        items: 30,
+        itemsOnPage: 10,
+        cssStyle: 'compact-theme'
+      });
     });
-  });
-</script>
+  </script>
 

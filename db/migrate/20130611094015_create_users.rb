@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :fullname
       t.integer :type_id
       t.integer :role_id
-      t.boolean :delete_flag, :default => false
+      t.boolean :is_deleted, :default => false
       t.timestamps
     end
 

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   def index
-  
+    @users = User.find(:all, :conditions => {:is_deleted => false}) 
   end
 
   def new
