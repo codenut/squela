@@ -10,7 +10,6 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(params[:project])
-    puts 'add'
     if @project.save
       render :js => "window.location = '#{project_path(@project)}'", :notice => 'Project was successfully created.'
     else
@@ -20,7 +19,6 @@ class ProjectsController < ApplicationController
 
   def update
     @project = Project.find(params[:id]) 
-    puts "update #{@project.id} #{@project.name}"
     if @project.update_attributes(params[:project])
       render :js => "window.location = '#{project_path(@project)}'", :notice => 'Project was successfully updated.'
     else

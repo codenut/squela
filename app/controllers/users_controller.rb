@@ -22,4 +22,11 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
   end
+
+  def search
+    @users = User.find(:all, 
+                       :select => 'id, fullname, email', 
+                       :conditions => ["fullname LIKE ?", '%' + params[:keyword] + '%'])
+    render :json => @users
+  end
 end

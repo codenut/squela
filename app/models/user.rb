@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :workitems
   has_many :votes
+  has_many :watches
   
   validates :email, :presence => true
   validates :fullname, :presence => true

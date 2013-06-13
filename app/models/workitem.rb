@@ -11,6 +11,7 @@ class Workitem < ActiveRecord::Base
 
   has_many :comments
   has_many :votes
+  has_many :watches
 
   belongs_to :user
 

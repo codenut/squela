@@ -35,12 +35,10 @@
       }
     })
     .bind('ajax:beforeSend', function() {
-      $('#submit').hide();
-      $('#spinner').show();
+      $('#submit').button('loading');
     })
     .bind('ajax:complete', function() {
-      $('#spinner').hide();
-      $('#submit').show();
+      $('#submit').button('reset');
     });
   });
 </script>

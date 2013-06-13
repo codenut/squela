@@ -49,6 +49,9 @@ Squela::Application.routes.draw do
   end
   
   resources :users do
+    collection do
+      get 'search/:keyword', :action => 'search'
+    end
   end
 
   resources :projects do
@@ -59,10 +62,14 @@ Squela::Application.routes.draw do
 
   resources :votes do
   end
+
+  resources :watches do
+  
+  end
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
-  root :to => 'workitems#view'
+  root :to => 'workitems#index'
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
