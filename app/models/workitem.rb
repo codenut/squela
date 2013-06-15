@@ -14,6 +14,5 @@ class Workitem < ActiveRecord::Base
   has_many :watches
 
   belongs_to :user
-
   validates :summary, :presence => true
 end

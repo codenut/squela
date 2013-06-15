@@ -84,7 +84,7 @@
             source: function(query, typeahead) {
               if(query.trim().length == 0) return false;
               $.ajax({
-                url: '/users/search/' + query,
+                url: '/users/search/' + query + '/' + <%= @workitem.id %>,
                 success: function(data) {
                   objects = [];
                   $.each(data, function(i, value) {
@@ -96,11 +96,15 @@
               }) 
             },
             updater: function(item) {
+              var id = map[item.split('-')[1]]; 
+              var fullname = item.split('-')[0];
               $.ajax({
                 url: '/watches',
+                type: 'POST',
+                data: { watch: { workitem_id: <%= @workitem.id %>, user_id: id } },
                 success: function(data) {
                   popover.options.content = data; 
-                  $("#watches_list").append('<li><a href="/users/' + map[item.split('-')[1]]+ '">' + item.split('-')[0] + '</a></li>');
+                  $("#watches_list").append('<li><a href="/users/' + id + '">' + fullname + '</a></li>');
                 }
               })
             }

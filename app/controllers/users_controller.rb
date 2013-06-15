@@ -24,9 +24,14 @@ class UsersController < ApplicationController
   end
 
   def search
-    @users = User.find(:all, 
-                       :select => 'id, fullname, email', 
-                       :conditions => ["fullname LIKE ?", '%' + params[:keyword] + '%'])
+    user_ids = []
+    watches = Watch.where(["workitem_id = ?", params[:workitem_id]]).select("user_id")
+    for watch in watches
+      user_ids << watch[:user_id]
+    end
+    @users = User.where(["fullname like ? and id not in (?)", 
+                          "%#{params[:keyword]}%", user_ids]).
+                          select("id, fullname, email")
     render :json => @users
   end
 end

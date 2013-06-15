@@ -50,7 +50,7 @@ Squela::Application.routes.draw do
   
   resources :users do
     collection do
-      get 'search/:keyword', :action => 'search'
+      get 'search/:keyword/:workitem_id', :action => 'search'
     end
   end
 
