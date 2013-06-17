@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   end
 
   def search
-    user_ids = []
+    user_ids = [0]
     watches = Watch.where(["workitem_id = ?", params[:workitem_id]]).select("user_id")
     for watch in watches
       user_ids << watch[:user_id]

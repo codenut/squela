@@ -15,11 +15,7 @@
           </li>
           <li>
           <span class="quick-info-left">Watches: </span>
-          <a id="watches_link" href="#" rel="popover" data-original-title="Watches" data-placement='bottom' data-content="Default">
-            <span class="badge badge-inverse">10</span>
-          </a>
-          <a href="#" style="float: right"><i class="icon-eye-open"></i></a>
-          <div id="watches_div" style="display:none" class="popover-div">
+          <div id="watch_div">
             <%= render :partial => 'watches/index', :locals => {:watches => @workitem.watches} %>
           </div>
           </li>
@@ -27,8 +23,8 @@
           <span class="quick-info-left">Votes: </span>
           <a id="votes_link" href="#", rel="popover" data-original-title="Votes" data-placement='bottom' data-content="Default">
             <span id="vote_count" class="badge badge-inverse"><%= @workitem.votes.size %></span>
+            <span style="margin-left: 10px">Vote this issue</span>
           </a>
-          <a href="#" style="float: right"><i class="icon-thumbs-up"></i></a>
           <div id="votes_div" style="display:none">
             <% for voter in @workitem.votes %>
               <div id="vote_<%= voter.id %>">
@@ -49,11 +45,11 @@
         <ul class="quick-info">
           <li>
           <span class="quick-info-left">Date Created: </span>
-          <span>15/May/13 4:01 AM</span>
+          <span><%= date_to_s(@workitem.created_at) %></span>
           </li>
           <li>
           <span class="quick-info-left">Last Updated: </span>
-          <span>15/May/13 4:01 AM</span>
+          <span><%= date_to_s(@workitem.updated_at) %></span>
           </li>
         </ul>
       </div>
@@ -64,64 +60,98 @@
     </div>
   </div>
 </div>
-
+<div id="watches_popover" style="display:none" class="popover-div">
+  <div>
+    <ul class="popover-ul" id="watches_list">
+      <li><input type="text" id="add_watches" data-provide="typeahead" autocomplete="off"/></li>
+      <!--<li class="divider-li"></li>--!>
+      <% for watch in @watches %>
+        <li><%= link_to h(watch.user.fullname), user_path(watch.user) %></li></li>
+        <li><%= link_to 'test', workitem_watch_path(watch) %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
 <script>
   $(document).ready(function() {
-    init_popover("#watches_link", "#watches_div");
+    init_popover("#watches_link", "#watches_popover");
     init_popover("#votes_link", "#votes_div");
-    function init_popover(link, div) {
-      $(link).popover({
-        html:true, 
-        content: function() {
-          return $(div).html();
-        }
-        }).on('click', function(e) {
-        if(div === "#watches_div") {
-          var popover = $(link).data('popover');
-          var map = {};
-          var objects = [];
-          $("#add_watches").typeahead({
-            source: function(query, typeahead) {
-              if(query.trim().length == 0) return false;
-              $.ajax({
-                url: '/users/search/' + query + '/' + <%= @workitem.id %>,
-                success: function(data) {
-                  objects = [];
-                  $.each(data, function(i, value) {
-                    map[value.email] = value.id;
-                    objects.push(value.fullname + '-' + value.email);
-                  });
-                  return typeahead(objects);
-                }
-              }) 
-            },
-            updater: function(item) {
-              var id = map[item.split('-')[1]]; 
-              var fullname = item.split('-')[0];
-              $.ajax({
-                url: '/watches',
-                type: 'POST',
-                data: { watch: { workitem_id: <%= @workitem.id %>, user_id: id } },
-                success: function(data) {
-                  popover.options.content = data; 
-                  $("#watches_list").append('<li><a href="/users/' + id + '">' + fullname + '</a></li>');
-                }
-              })
-            }
-          });
-        }
-        e.preventDefault(); 
-      });
-
-      $("[class$='workitem']").bind('keypress', function(e) {
-        var code = e.keyCode || e.which;
-        if(code == 13) {
-          e.preventDefault();
-          return false; 
-        }
-      });
-    }
+    $("[class$='workitem']").bind('keypress', function(e) {
+      var code = e.keyCode || e.which;
+      if(code == 13) {
+        e.preventDefault();
+        return false; 
+      }
+    });
   });
+
+  function init_popover(link, div) {
+    $(link).popover({
+      html:true, 
+      content: function() {
+        return $(div).html();
+      }
+      }).on('click', function(e) {
+      if(div === "#watches_popover") {
+        var map = {};
+        var objects = [];
+        var popover = $('#watches_link').data('popover');
+        $("#add_watches").typeahead({
+          source: function(query, typeahead) {
+            if(query.trim().length == 0) return false;
+            $.ajax({
+              url: '/users/search/' + query + '/' + <%= @workitem.id %>,
+              success: function(data) {
+                objects = [];
+                $.each(data, function(i, value) {
+                  map[value.email] = value.id;
+                  objects.push(value.fullname + '-' + value.email);
+                });
+                return typeahead(objects);
+              }
+            }) 
+          },
+          updater: function(item) {
+            add_watch(map[item.split('-')[1]], item.split('-')[0], popover);
+          }
+        });
+      }
+      e.preventDefault(); 
+    });
+  }
+
+
+  function add_watch(user_id, fullname, popover) {
+    $.ajax({
+      url: '<%= workitem_watches_path(@workitem) %>',
+      type: 'POST',
+      data: { watch: { 'user_id': user_id } },
+      success: function(data) { 
+        //popover.options.content = data;
+        //update_count('#watch_count', 1);
+        $('#watch_div').html(data);
+        init_popover("#watches_link", "#watches_popover");
+        $('#watches_list').append('<li><a href="/user/' + user_id + '">' + fullname + '</a></li>') 
+      }
+    })
+  }
+
+  function remove_watch(user_id) {
+    $.ajax({
+      url: '<%= workitem_watches_path(@workitem) %>/' + user_id,
+      type: 'DELETE',
+      success: function(data) { 
+        //popover.options.content = data;
+        //update_count('#watch_count', 1);
+        $('#watch_div').html(data);
+        init_popover("#watches_link", "#watches_popover");
+      }
+    })
+  }
+
+  function update_count(id, add) {
+    $(id).html(parseInt($(id).html()) + add); 
+  }
 
   $(document).on('click', '.unvote', function() {
     $.ajax({

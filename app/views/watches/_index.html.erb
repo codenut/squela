@@ -1,12 +1,28 @@
 <% @watches = watches if @watches.nil? %>
-<div>
-  <ul class="popover-ul" id="watches_list">
-  </ul>
-  <ul class="popover-ul">
-    <% for watch in @watches %>
-      <li><%= link_to h(watch.user.fullname), watch %></li></li>
-    <% end %>
-    <li class="divider-li"></li>
-    <li><input type="text" id="add_watches" data-provide="typeahead" autocomplete="off"/></li>
-  </ul>
-</div>
+<a id="watches_link" href="#" rel="popover" data-original-title="Watches" data-placement='bottom' data-content="Default">
+  <span class="badge badge-inverse" id="watch_count"><%= @watches.size %></span>
+</a>
+<% if not @watches.map(&:user_id).include?(1) %>
+  <a href="#" id="watch_workitem">
+    <span style="margin-left: 10px">Watch this issue</span>
+  </a>
+  <script>
+    $(document).ready(function(){
+      $(document).on('click', '#watch_workitem', function(e) {
+        var popover = $('#watches_link').data('popover');
+        add_watch('1', 'Michael Valladolid', popover);
+        e.preventDefault();
+        return false;
+      });
+    });
+  </script>
+<% else %>
+  <a href="#" id="unwatch">
+    <span style="margin-left: 10px">Stop watching</span>
+  </a>
+  <script>
+    $(document).on('click', '#unwatch', function() {
+      remove_watch(180);
+    });
+  </script>
+<% end %>

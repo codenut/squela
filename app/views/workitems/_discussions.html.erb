@@ -12,8 +12,8 @@
       <div style="padding: 10px 10px 20px 20px">
         <div>
           <textarea style="width: 98%" rows="3" id='description'></textarea>
-          <a class="btn" style="float: right;" id='comment-link'>Comment</a>
           <%= image_tag 'spinner_small.gif', :style => 'display:none; float:right', :id => 'spinner' %> 
+          <a class="btn" style="float: right;" id='comment-link' data-loading-text='Saving...'>Comment</a>
           </br>
           </br>
         </div>
@@ -23,8 +23,8 @@
 </div>
 <script>
   $('#comment-link').click(function() {
-    $('#comment-link').hide();
     $('#spinner').show();
+    $('#comment-link').button('loading');
     $.ajax({
       type: 'POST',
       data: { comment: {description: $('#description').val(), workitem_id: <%= @workitem.id %>} },
@@ -43,8 +43,8 @@
         }
       },
       complete: function() {
-        $('#comment-link').show();
         $('#spinner').hide();
+        $('#comment-link').button('reset');
       }
     });
   });

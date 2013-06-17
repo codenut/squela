@@ -46,6 +46,7 @@ Squela::Application.routes.draw do
   #     resources :products
   #   end
   resources :workitems do
+    resources :watches
   end
   
   resources :users do
@@ -63,9 +64,6 @@ Squela::Application.routes.draw do
   resources :votes do
   end
 
-  resources :watches do
-  
-  end
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
