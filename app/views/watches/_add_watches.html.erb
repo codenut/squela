@@ -1,0 +1,38 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" >&times;</button>
+  <h3>Watches</h3>
+</div>
+<div class="modal-body">
+  <div id="watches_popover">
+    <div>
+      <ul class="popover-ul" id="watches_list">
+        <li><input type="text" id="add_watches" data-provide="typeahead" autocomplete="off" style="width: 250px"/></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<%= stylesheet_link_tag 'token-input-bootstrap' %>
+<%= javascript_include_tag 'jquery.tokeninput' %>
+<script>
+  $(document).ready(function() {
+    $("#add_watches").tokenInput('/users/search/' + <%= @workitem_id %>, {
+      propertyToSearch: 'fullname',     
+      theme: 'bootstrap',
+      zindex: 1111,
+      preventDuplicates: true,
+      tokenLimit: 5,
+      prePopulate: [
+      <% for watch in @watches %>
+        {id: <%= watch.user.id %>, fullname: "<%= watch.user.fullname %>", watch_id: <%= watch.id %>},
+      <% end %>
+      ],
+      onAdd: function(item) {
+        add_watch(item.id, item.fullname);
+      }, 
+      onDelete: function(item) {
+        remove_watch(item.id); 
+      }
+    });
+    $("#add_watches").focus();
+  });
+</script>

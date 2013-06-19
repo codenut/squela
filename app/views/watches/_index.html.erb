@@ -1,14 +1,17 @@
 <% @watches = watches if @watches.nil? %>
-<a id="watches_link" href="#" rel="popover" data-original-title="Watches" data-placement='bottom' data-content="Default">
+<% @workitem_id = workitem_id if @workitem_id.nil? %>
+<%= link_to new_workitem_watch_path(@workitem_id), :id => "watches_link", :class => "ajax-modal" do %>
   <span class="badge badge-inverse" id="watch_count"><%= @watches.size %></span>
-</a>
-<% if not @watches.map(&:user_id).include?(1) %>
+<% end %>
+<% index = @watches.map(&:user_id).index(1) %>
+<% if not index %>
   <a href="#" id="watch_workitem">
     <span style="margin-left: 10px">Watch this issue</span>
   </a>
   <script>
     $(document).ready(function(){
-      $(document).on('click', '#watch_workitem', function(e) {
+      $('#watch_workitem').click(function(e) {
+        $(this).hide();
         var popover = $('#watches_link').data('popover');
         add_watch('1', 'Michael Valladolid', popover);
         e.preventDefault();
@@ -21,8 +24,18 @@
     <span style="margin-left: 10px">Stop watching</span>
   </a>
   <script>
-    $(document).on('click', '#unwatch', function() {
-      remove_watch(180);
+    $(document).ready(function(){
+      $(this).hide();
+      $('#unwatch').click(function(e) {
+        remove_watch(1);
+        e.preventDefault();
+        return false;
+      });
     });
   </script>
 <% end %>
+<script>
+  $(document).ready(function() {
+  })
+</script>
+

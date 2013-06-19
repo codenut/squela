@@ -1,7 +1,14 @@
 class WatchesController < ApplicationController
   def index
     @watches = Watch.find(:all)
+    @workitem_id = params[:workitem_id]
     render :partial => 'index'
+  end
+
+  def new
+    @watches = Watch.find(:all)
+    @workitem_id = params[:workitem_id]
+    render :partial => 'add_watches'
   end
 
   def create 
@@ -13,8 +20,8 @@ class WatchesController < ApplicationController
   end
 
   def destroy
-    @watch = Watch.find(params[:id])
-    @watch.destroy
+    Watch.delete_all(["workitem_id = ? and user_id = ?", 
+                     params[:workitem_id], params[:id]])
     index
   end
 end
