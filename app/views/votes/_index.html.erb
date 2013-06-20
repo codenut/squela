@@ -1,0 +1,53 @@
+<% @votes = votes if @votes.nil? %>
+<a id="votes_link" href="#", rel="popover" data-original-title="Votes" data-placement='bottom' data-content="Default">
+  <span id="vote_count" class="badge badge-inverse"><%= @votes.size %></span>
+</a>
+<% index = @votes.map(&:user_id).index(1) %>
+<% if not index %>
+  <a href="#" id="vote_workitem">
+    <span style="margin-left: 10px">Vote this issue</span>
+  </a>
+  <script>
+    $(document).ready(function() {
+      $('#vote_workitem').click(function(e) {
+        $(this).hide();
+        vote_cd(1, 'POST');
+        e.preventDefault();
+        return false;
+      })
+    });
+  </script>
+<% else %>
+  <a href="#" id="unvote">
+    <span style="margin-left: 10px">Unvote this issue</span>
+  </a>
+  <script>
+    $(document).ready(function() {
+      $('#unvote').click(function(e) {
+        $(this).hide();
+        vote_cd(1, 'DELETE');
+        e.preventDefault();
+        return false;
+      })
+    });
+  </script>
+<% end %>
+<div id="votes_div" style="display:none">
+  <% if @votes.size > 0 %>
+    <% for vote in @votes %>
+      <div id="vote_<%= vote.id %>">
+        <%= link_to h(vote.user.fullname), user_path(vote.user) %>
+        <!--<a id="<%= vote_path(vote) %>" class="unvote">
+          <i style="margin-left: 20px; float: right" class="icon-remove "></i>
+        </a> --!>
+      </div>
+    <% end %>
+  <% else %>
+    No votes
+  <% end %>
+</div>
+<script>
+  $(document).ready(function() {
+    init_popover("#votes_link", "#votes_div");
+  });
+</script>

@@ -14,7 +14,6 @@ class WatchesController < ApplicationController
   def create 
     @watch = Watch.new(params[:watch])
     @watch.workitem_id = params[:workitem_id]
-    @watch.user_id = 1 if @watch.user_id.nil?
     @watch.save
     index
   end

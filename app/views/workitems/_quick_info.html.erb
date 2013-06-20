@@ -21,19 +21,8 @@
           </li>
           <li> 
           <span class="quick-info-left">Votes: </span>
-          <a id="votes_link" href="#", rel="popover" data-original-title="Votes" data-placement='bottom' data-content="Default">
-            <span id="vote_count" class="badge badge-inverse"><%= @workitem.votes.size %></span>
-            <span style="margin-left: 10px">Vote this issue</span>
-          </a>
-          <div id="votes_div" style="display:none">
-            <% for voter in @workitem.votes %>
-              <div id="vote_<%= voter.id %>">
-                <%= link_to h(voter.user.fullname), user_path(voter.user) %>
-                <a id="<%= vote_path(voter) %>" class="unvote">
-                  <i style="margin-left: 20px; float: right" class="icon-remove "></i>
-                </a>
-              </div>
-            <% end %>
+          <div id="vote_div">
+            <%= render :partial => 'votes/index', :locals => {:votes => @workitem.votes, :workitem_id => @workitem_id} %> 
           </div>
           </li>
         </ul>
@@ -62,8 +51,6 @@
 </div>
 <script>
   $(document).ready(function() {
-    //init_popover("#watches_link", "#watches_popover");
-    init_popover("#votes_link", "#votes_div");
     $("[class$='workitem']").bind('keypress', function(e) {
       var code = e.keyCode || e.which;
       if(code == 13) {
@@ -82,10 +69,13 @@
     });
   }
 
-  function add_watch(user_id, fullname) {
+  function watch_cd(user_id, method) {
+    var url = '<%= workitem_watches_path(@workitem) %>';
+    if(method != 'POST')
+      url = url + '/' + user_id;
     $.ajax({
-      url: '<%= workitem_watches_path(@workitem) %>',
-      type: 'POST',
+      url: url,
+      type: method,
       data: { watch: { 'user_id': user_id } },
       success: function(data) { 
         $('#watch_div').html(data);
@@ -93,20 +83,21 @@
       complete: function() {
         ajax_modal();
       }
-    })
+    });
   }
 
-  function remove_watch(user_id) {
+  function vote_cd(user_id, method) {
+    var url = '<%= workitem_votes_path(@workitem) %>';
+    if(method != 'POST')
+      url = url + '/' + user_id;
     $.ajax({
-      url: '<%= workitem_watches_path(@workitem) %>/' + user_id,
-      type: 'DELETE',
-      success: function(data) { 
-        $('#watch_div').html(data);
-      },
-      complete: function() {
-        ajax_modal();
+      url: url,
+      type: method,
+      data: { vote: {'user_id': user_id} },
+      success: function(data) {
+        $('#vote_div').html(data); 
       }
-    })
+    }); 
   }
 
   $(document).on('click', '.unvote', function() {

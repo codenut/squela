@@ -27,10 +27,10 @@
       <% end %>
       ],
       onAdd: function(item) {
-        add_watch(item.id, item.fullname);
+        watch_cd(item.id, "POST");
       }, 
       onDelete: function(item) {
-        remove_watch(item.id); 
+        watch_cd(item.id, "DELETE");
       }
     });
     $("#add_watches").focus();

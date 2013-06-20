@@ -1,7 +1,19 @@
 class VotesController < ApplicationController
+  def index
+    @votes = Vote.find(:all)
+    puts "wwwadfasfdafds #{@votes.nil?}"
+    @workitem_id = params[:workitem_id]
+    render :partial => 'index'
+  end
+  def create
+    @vote = Vote.new(params[:vote])
+    @vote.workitem_id = params[:workitem_id]
+    @vote.save
+    index
+  end
   def destroy
-    @vote = Vote.find(params[:id])
-    @vote.destroy
-    render :json => @vote
+    Vote.delete_all(["workitem_id = ? and user_id = ?",
+                    params[:workitem_id], params[:id]])
+    index
   end
 end
