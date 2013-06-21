@@ -37,9 +37,6 @@
     <% for vote in @votes %>
       <div id="vote_<%= vote.id %>">
         <%= link_to h(vote.user.fullname), user_path(vote.user) %>
-        <!--<a id="<%= vote_path(vote) %>" class="unvote">
-          <i style="margin-left: 20px; float: right" class="icon-remove "></i>
-        </a> --!>
       </div>
     <% end %>
   <% else %>

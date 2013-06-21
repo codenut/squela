@@ -1,4 +1,18 @@
 Squela::Application.routes.draw do
+  resources :workitems do
+    resources :votes
+    resources :watches
+  end
+  
+  resources :users do
+    collection do
+      get 'search/:workitem_id', :action => 'search'
+    end
+  end
+
+  resources :projects 
+  resources :comments
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -45,22 +59,6 @@ Squela::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-  resources :workitems do
-    resources :watches
-    resources :votes
-  end
-  
-  resources :users do
-    collection do
-      get 'search/:workitem_id', :action => 'search'
-    end
-  end
-
-  resources :projects do
-  end
-  
-  resources :comments do
-  end
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.

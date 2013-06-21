@@ -1,12 +1,12 @@
 class WatchesController < ApplicationController
   def index
-    @watches = Watch.find(:all)
+    @watches = Watch.find(:all, :conditions => {:workitem_id => params[:workitem_id]})
     @workitem_id = params[:workitem_id]
     render :partial => 'index'
   end
 
   def new
-    @watches = Watch.find(:all)
+    @watches = Watch.find(:all, :conditions => {:workitem_id => params[:workitem_id]})
     @workitem_id = params[:workitem_id]
     render :partial => 'add_watches'
   end

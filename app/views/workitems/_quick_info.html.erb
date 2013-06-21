@@ -3,49 +3,51 @@
     Quick Information
   </div>         
   <div class="box-container-toggle">
-    <div class="box-content">
-      <div>
-        <legend>
-          People
-        </legend>
-        <ul class="quick-info">
-          <li>
-          <span class="quick-info-left">Reporter: </span>
-          <span><a rel="popover" href="#">Michael Valladolid</a></span>
-          </li>
-          <li>
-          <span class="quick-info-left">Watches: </span>
-          <div id="watch_div">
-            <%= render :partial => 'watches/index', :locals => {:watches => @workitem.watches, :workitem_id => @workitem.id} %>
-          </div>
-          </li>
-          <li> 
-          <span class="quick-info-left">Votes: </span>
-          <div id="vote_div">
-            <%= render :partial => 'votes/index', :locals => {:votes => @workitem.votes, :workitem_id => @workitem_id} %> 
-          </div>
-          </li>
-        </ul>
-        <legend>
-          <span>
-            Dates
-          </span>
-        </legend>
-        <ul class="quick-info">
-          <li>
-          <span class="quick-info-left">Date Created: </span>
-          <span><%= date_to_s(@workitem.created_at) %></span>
-          </li>
-          <li>
-          <span class="quick-info-left">Last Updated: </span>
-          <span><%= date_to_s(@workitem.updated_at) %></span>
-          </li>
-        </ul>
+    <% if !current_page?(new_workitem_path) %>
+      <div class="box-content">
+        <div>
+          <legend>
+            People
+          </legend>
+          <ul class="quick-info">
+            <li>
+            <span class="quick-info-left">Reporter: </span>
+            <span><a rel="popover" href="#">Michael Valladolid</a></span>
+            </li>
+            <li>
+            <span class="quick-info-left">Watches: </span>
+            <div id="watch_div">
+              <%= render :partial => 'watches/index', :locals => {:watches => @workitem.watches, :workitem_id => @workitem.id} %>
+            </div>
+            </li>
+            <li> 
+            <span class="quick-info-left">Votes: </span>
+            <div id="vote_div">
+              <%= render :partial => 'votes/index', :locals => {:votes => @workitem.votes, :workitem_id => @workitem_id} %> 
+            </div>
+            </li>
+          </ul>
+          <legend>
+            <span>
+              Dates
+            </span>
+          </legend>
+          <ul class="quick-info">
+            <li>
+            <span class="quick-info-left">Date Created: </span>
+            <span><%= date_to_s(@workitem.created_at) %></span>
+            </li>
+            <li>
+            <span class="quick-info-left">Last Updated: </span>
+            <span><%= date_to_s(@workitem.updated_at) %></span>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
+    <% end %>
     <div class="box-content" style="border-top: 1px solid #DDDDDD">
       <%= f.submit 'Save', :class => :btn, :style => "width: 110px", :id => :submit, 'data-loading-text' => 'Saving...' %>&nbsp;&nbsp;&nbsp;
-      <button type="submit" class="btn" style="width: 110px">Add Task</button> 
+      <%= link_to h("Cancel"), workitems_path, :class => "btn", :style => "width: 90px" %> 
     </div>
   </div>
 </div>
@@ -60,55 +62,46 @@
     });
   });
 
-  function init_popover(link, div) {
-    $(link).popover({
-      html:true, 
-      content: function() {
-        return $(div).html();
-      }
-    });
-  }
+  <% if !current_page?(new_workitem_path) %>
 
-  function watch_cd(user_id, method) {
-    var url = '<%= workitem_watches_path(@workitem) %>';
-    if(method != 'POST')
+    function init_popover(link, div) {
+      $(link).popover({
+        html:true, 
+        content: function() {
+          return $(div).html();
+        }
+      });
+    }
+
+    function watch_cd(user_id, method) {
+      var url = '<%= workitem_watches_path(@workitem) %>';
+      if(method != 'POST')
       url = url + '/' + user_id;
-    $.ajax({
-      url: url,
-      type: method,
-      data: { watch: { 'user_id': user_id } },
-      success: function(data) { 
-        $('#watch_div').html(data);
-      },
-      complete: function() {
-        ajax_modal();
-      }
-    });
-  }
+      $.ajax({
+        url: url,
+        type: method,
+        data: { watch: { 'user_id': user_id } },
+        success: function(data) { 
+          $('#watch_div').html(data);
+        },
+        complete: function() {
+          ajax_modal();
+        }
+      });
+    }
 
-  function vote_cd(user_id, method) {
-    var url = '<%= workitem_votes_path(@workitem) %>';
-    if(method != 'POST')
+    function vote_cd(user_id, method) {
+      var url = '<%= workitem_votes_path(@workitem) %>';
+      if(method != 'POST')
       url = url + '/' + user_id;
-    $.ajax({
-      url: url,
-      type: method,
-      data: { vote: {'user_id': user_id} },
-      success: function(data) {
-        $('#vote_div').html(data); 
-      }
-    }); 
-  }
-
-  $(document).on('click', '.unvote', function() {
-    $.ajax({
-      type: 'DELETE',
-      url: this.id,
-      success: function(data) {
-        $('#vote_' + data['id']).remove();
-      },
-      complete: function(data) {
-      }
-    });
-  });
+      $.ajax({
+        url: url,
+        type: method,
+        data: { vote: {'user_id': user_id} },
+        success: function(data) {
+          $('#vote_div').html(data); 
+        }
+      }); 
+    }
+  <% end %>
 </script>

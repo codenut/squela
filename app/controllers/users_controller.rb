@@ -24,9 +24,7 @@ class UsersController < ApplicationController
   end
 
   def search
-    @users = User.joins("LEFT JOIN watches ON watches.user_id = users.id")
-                 .where(["fullname like ? and watches.id IS ?",  "%#{params[:q]}%", nil])
-                 .select("users.id, fullname, email")
+    @users = User.search_user_watch(params[:workitem_id], params[:q])
     render :json => @users
   end
 end
