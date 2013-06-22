@@ -13,13 +13,13 @@
         <div class="span6" style="padding: 0px; margin: 0px">
           <label class="story-label">Type: </label>
           <%= f.select :type_id, 
-                       options_for_select([["Story", 1], ["Task", 2], ["Defect", 3]]), 
+                       options_for_select([["Story", 1], ["Task", 2], ["Defect", 3], @workitem.type_id]), 
                        {}, 
                        :class => "story-field" %>
           <br/><br/>
           <label class="story-label">Status: </label>
           <%= f.select :status_id,
-                       options_for_select([["New", 1], ["In Progress", 2], ["Done", 3]]),
+                       options_for_select([["New", 1], ["In Progress", 2], ["Done", 3]], @workitem.status_id),
                        {},
                        :class => "story-field" %>
           <br/><br/>
@@ -31,13 +31,13 @@
         <div class="span6" style="padding: 0px 0px 0px 10px; margin: 0px">
           <label class="story-label">Points: </label>
           <%= f.select :points, 
-                       options_for_select([['1', 1], ['2', 2], ['3', 3]]), 
+                       options_for_select([['1', 1], ['2', 2], ['3', 3]], @workitem.points), 
                        {}, 
                        :class => "story-field" %>
           <br/><br/>
           <label class="story-label">Priority: </label>
           <%= f.select :priority_id, 
-                       options_for_select([["Low", 1], ["Medium",  2], ["High", 3]]),
+                       options_for_select([["Low", 1], ["Normal",  2], ["High", 3]], @workitem.priority_id),
                        {},
                        :class => "story-field" %>
           <br/><br/>

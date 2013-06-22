@@ -3,6 +3,7 @@ class CreateWorkitems < ActiveRecord::Migration
     create_table :workitems do |t|
       t.string :summary
       t.integer :type_id
+      t.integer :project_id
       t.integer :points
       t.integer :status_id
       t.integer :priority_id

@@ -12,6 +12,9 @@
   </head>
   <body>
     <%= render 'shared/header' %>
+    <div id="loading" style="margin:auto; width: 300px;margin-top:-38px;padding-left:80px; display:none">
+      <span class="badge badge-warning">Loading...</span>
+    </div>
     <div class="container">
       <%= render 'shared/message' %>
       <%= yield %>

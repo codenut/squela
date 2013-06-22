@@ -28,7 +28,7 @@
           </a>
           <ul class="dropdown-menu">
             <li><%= link_to 'Projects', projects_path %>
-            <li><%= link_to 'Workitems', workitems_path %></li>
+            <li><%= link_to 'Workitems', project_workitems_path(@current_project) %></li>
             <li class="divider"></li>
             <li><%= link_to 'User Management', users_path %></a></li>
           </ul>
@@ -83,17 +83,17 @@
             <b class="caret white-caret"></b>
           </a>
           <ul class="dropdown-menu">
-            <li><%= link_to 'Search for Workitems', workitems_path %></li>
-            <li><%= link_to 'Create Workitem', new_workitem_path %></li>
+            <li><%= link_to 'Search for Workitems', project_workitems_path(@current_project) %></li>
+            <li><%= link_to 'Create Workitem', new_project_workitem_path(@current_project) %></li>
             <% if @my_workitems.size > 0 %>
               <li class="divider"></li>
               <li><label>Recent Workitems</label></li>
               <% @my_workitems.each_with_index do |wori, idx| %>
-                <li><%= link_to h(wori.summary), wori %></li>
+                <li><%= link_to h(wori.summary), project_workitem_path(@current_project, wori) %></li>
                 <% break if idx == 4 %> 
               <% end %>
               <% if @my_workitems.size == 6 %>
-                <li><%= link_to 'more...', workitems_path %></li>
+                <li><%= link_to 'more...', project_workitems_path(@current_project) %></li>
               <% end %>
             <% end %>
           </ul>

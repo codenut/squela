@@ -1,18 +1,4 @@
 Squela::Application.routes.draw do
-  resources :workitems do
-    resources :votes
-    resources :watches
-  end
-  
-  resources :users do
-    collection do
-      get 'search/:workitem_id', :action => 'search'
-    end
-  end
-
-  resources :projects 
-  resources :comments
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -63,6 +49,20 @@ Squela::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
+  resources :projects do
+    resources :workitems do
+      resources :comments
+      resources :votes
+      resources :watches
+    end
+  end
+
+  resources :users do
+    collection do
+      get 'search/:workitem_id', :action => 'search'
+    end
+  end
+
   root :to => 'workitems#index'
   # See how all your routes lay out with "rake routes"
 

@@ -1,0 +1,50 @@
+<br/>
+<br/>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Summary</th>
+      <th>Owner</th>
+      <th>Priority</th>
+      <th>Status</th>
+    </tr>
+  </thead>   
+  <tbody>
+    <% for workitem in @workitems %>
+      <tr>
+        <td><%= workitem.id %></td>
+        <td class="center">
+          <%= link_to project_workitem_path(@current_project, workitem) do %>
+            <%= workitem.summary %>
+          <% end %>
+        </td>
+        <td class="center"><%= workitem.user.fullname %></td>
+        <td class="center"><%= workitem.priority.name %> </td>
+        <td class="center"><%= workitem.status_id %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br/>
+<div id="compact-pagination" style="margin: 10px; min-height: 30px">
+  <div style="float: left; ">
+    Showing <%= @offset * @limit + 1 %> to <%= @offset * @limit + @workitems.size %> of results <%= @total %>
+  </div>
+  <div id="pagination" style="float: right">
+  </div>
+</div>
+<script>
+  $(function() {
+    $('#pagination').pagination({
+      items: <%= @total %>,
+      itemsOnPage: <%= @limit %>,
+      cssStyle: 'compact-theme',
+      currentPage: <%= @offset %> + 1,
+      onPageClick: function(pageNumber, e) {
+        search(pageNumber);
+      }
+    });
+  });
+</script>

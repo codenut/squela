@@ -11,6 +11,8 @@ class CreateUsers < ActiveRecord::Migration
     end
 
     User.create :email => 'mikevalladolid@gmail.com', :password => 'bassist', :fullname => 'Michael Valladolid'
+    User.create :email => 'jsnow@gmail.com', :password => 'bassist', :fullname => 'John Snow'
+    User.create :email => 'astark@gmail.com', :password => 'bassist', :fullname => 'Arya Stark'
   end
 
   def self.down

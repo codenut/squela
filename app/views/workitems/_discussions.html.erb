@@ -27,8 +27,8 @@
     $('#comment-link').button('loading');
     $.ajax({
       type: 'POST',
+      url: '<%= project_workitem_comments_path(@current_project, @workitem) %>',
       data: { comment: {description: $('#description').val(), workitem_id: <%= @workitem.id %>} },
-      url: '<%= comments_path %>',
       success: function(data) {
         if($.type(data) === 'object') {
           for(var key in data) {

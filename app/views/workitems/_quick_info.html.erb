@@ -3,7 +3,7 @@
     Quick Information
   </div>         
   <div class="box-container-toggle">
-    <% if !current_page?(new_workitem_path) %>
+    <% if !current_page?(new_project_workitem_path) %>
       <div class="box-content">
         <div>
           <legend>
@@ -47,7 +47,7 @@
     <% end %>
     <div class="box-content" style="border-top: 1px solid #DDDDDD">
       <%= f.submit 'Save', :class => :btn, :style => "width: 110px", :id => :submit, 'data-loading-text' => 'Saving...' %>&nbsp;&nbsp;&nbsp;
-      <%= link_to h("Cancel"), workitems_path, :class => "btn", :style => "width: 90px" %> 
+      <%= link_to h("Cancel"), project_workitems_path(@current_project), :class => "btn", :style => "width: 90px" %> 
     </div>
   </div>
 </div>
@@ -62,7 +62,7 @@
     });
   });
 
-  <% if !current_page?(new_workitem_path) %>
+  <% if !current_page?(new_project_workitem_path) %>
 
     function init_popover(link, div) {
       $(link).popover({
@@ -74,7 +74,7 @@
     }
 
     function watch_cd(user_id, method) {
-      var url = '<%= workitem_watches_path(@workitem) %>';
+      var url = '<%= project_workitem_watches_path(@current_project, @workitem) %>';
       if(method != 'POST')
       url = url + '/' + user_id;
       $.ajax({
@@ -91,7 +91,7 @@
     }
 
     function vote_cd(user_id, method) {
-      var url = '<%= workitem_votes_path(@workitem) %>';
+      var url = '<%= project_workitem_votes_path(@current_project, @workitem) %>';
       if(method != 'POST')
       url = url + '/' + user_id;
       $.ajax({

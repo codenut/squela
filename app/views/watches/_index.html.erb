@@ -1,6 +1,6 @@
 <% @watches = watches if @watches.nil? %>
 <% @workitem_id = workitem_id if @workitem_id.nil? %>
-<%= link_to new_workitem_watch_path(@workitem_id), :id => "watches_link", :class => "ajax-modal" do %>
+<%= link_to new_project_workitem_watch_path(@current_project, @workitem_id), :id => "watches_link", :class => "ajax-modal" do %>
   <span class="badge badge-inverse" id="watch_count"><%= @watches.size %></span>
 <% end %>
 <% index = @watches.map(&:user_id).index(1) %>

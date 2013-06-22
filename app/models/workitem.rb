@@ -6,6 +6,7 @@ class Workitem < ActiveRecord::Base
                   :priority_id, 
                   :user_id,
                   :estimate,
+                  :description,
                   :tags,
                   :due_date
 
@@ -13,6 +14,7 @@ class Workitem < ActiveRecord::Base
   has_many :votes
   has_many :watches
 
+  belongs_to :priority
   belongs_to :user
   validates :summary, :presence => true
 end

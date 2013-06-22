@@ -5,7 +5,7 @@
     </h4>
   </div>
   <div class="btn-group" style="float: right">
-    <%= link_to new_workitem_path, :class => 'btn' do %><i class="icon-plus"></i>&nbsp; Add Workitem<%end%>
+    <%= link_to new_project_workitem_path, :class => 'btn' do %><i class="icon-plus"></i>&nbsp; Add Workitem<%end%>
   </div>
   <br/>
   <br/>
@@ -16,72 +16,36 @@
         <table width="100%">
           <tr>
             <td>
-              Contains text:&nbsp; <input type="text" style="width: 64%"/> 
+              Contains text:&nbsp; <input id="keyword" type="text" style="width: 64%"/> 
             </td>
             <td>
-              Type: <select style="width: 70%">
-                <option>All</option>
-                <option>Story</option>
-                <option>Task</option>
-                <option>Defect</option>
+              Type: <select id="type_id" style="width: 70%">
+                <option value="">All</option>
+                <option value="1">Story</option>
+                <option value="2">Task</option>
+                <option value="3">Defect</option>
               </select>
             </td>
             <td>
-              Status: &nbsp;<select style="width: 70%">
-                <option>All</option>
-                <option>In Progress</option>
-                <option>Done</option>
-                <option>Resolved</option>
+              Status: &nbsp;<select id="status_id" style="width: 70%">
+                <option value="">All</option>
+                <option value="1">In Progress</option>
+                <option value="2">Done</option>
+                <option value="3">Verified</option>
               </select>
             </td>
             <td>
-              Rows: &nbsp; <select style="width: 60%">
-                <option>10</option>
-                <option>25</option>
-                <option>50</option>
+              Rows: &nbsp; <select id="rows" style="width: 60%">
+                <option value="2">2</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
               </select> 
             </td>
           </tr>
         </table>
       </div>
     </div>         
-    <div class="box-container-toggle">
-      <br/>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Type</th>
-            <th>Summary</th>
-            <th>Owner</th>
-            <th>Priority</th>
-            <th>Status</th>
-          </tr>
-        </thead>   
-        <tbody>
-          <% for workitem in @workitems %>
-            <tr>
-              <td><%= workitem.type_id %></td>
-              <td class="center">
-                <%= link_to workitem do %>
-                  <%= workitem.summary %>
-                <% end %>
-              </td>
-              <td class="center"><%= workitem.user.fullname %></td>
-              <td class="center"><%= workitem.priority_id %> </td>
-              <td class="center"><%= workitem.status_id %> </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-
-      <br/>
-      <div id="compact-pagination" style="margin: 10px; min-height: 30px">
-        <div style="float: left; ">
-          Showing 1 to 10 of 30 results
-        </div>
-        <div id="pagination" style="float: right">
-        </div>
-      </div>
+    <div class="box-container-toggle" id="workitems_result">
     </div>
   </div>
 </div>
@@ -89,11 +53,42 @@
 <%= javascript_include_tag 'jquery.simplePagination' %>
 
 <script>
-  $(function() {
-    $('#pagination').pagination({
-      items: 30,
-      itemsOnPage: 10,
-      cssStyle: 'compact-theme'
+  function search(pageNumber) {
+    keyword = $("#keyword").val();
+    type_id = $("#type_id").val();
+    status_id = $("#status_id").val();
+    rows = $("#rows").val();
+    $("#loading").show();
+    $.ajax({
+      url: "<%= project_workitems_path(@current_project) %>",
+      method: "GET",
+      data: {
+        partial: true,
+        keyword: keyword,
+        type_id: type_id, 
+        status_id: status_id,
+        rows: rows,
+        offset: pageNumber - 1
+      },
+      success: function(response) {
+        $("#workitems_result").html(response); 
+        $("#loading").hide();
+      }
     });
+  }
+
+  $(document).ready(function() {
+    search(1);
+    var obj = ["#rows", "#type_id", "#status_id"];
+    for (var i = 0; i < obj.length; ++i) {
+      $(obj[i]).change(function() {
+        search(1);
+      });
+    }
+
+    $("#keyword").keydown(function(e) {
+      if(e.keyCode ==  13)
+        search(1); 
+    })
   });
 </script>
