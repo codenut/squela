@@ -5,7 +5,17 @@ class ProjectsController < ApplicationController
   end
 
   def index 
-    @projects = Project.find(:all, :conditions => {:is_deleted => false})
+    @limit = params[:rows].nil? ? 2 : params[:rows].to_i
+    @offset = params[:offset].nil? ? 0 : params[:offset].to_i
+
+    where = ["name like '%#{params[:keyword]}%'"]
+    @projects = Project.where(where.join(" AND "))
+    @total = @projects.size
+    @projects = @projects.limit(@limit).offset(@limit * @offset)
+
+    if params[:partial]
+      render :partial => "projects/projects"
+    end
   end
 
   def create

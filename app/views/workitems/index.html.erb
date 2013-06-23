@@ -21,17 +21,17 @@
             <td>
               Type: <select id="type_id" style="width: 70%">
                 <option value="">All</option>
-                <option value="1">Story</option>
-                <option value="2">Task</option>
-                <option value="3">Defect</option>
+                <% WorkitemType.all_cached.each do |type| %>
+                  <option value="<%= type.id %>"><%= type.name %></option>
+                <% end %>
               </select>
             </td>
             <td>
               Status: &nbsp;<select id="status_id" style="width: 70%">
                 <option value="">All</option>
-                <option value="1">In Progress</option>
-                <option value="2">Done</option>
-                <option value="3">Verified</option>
+                <%= WorkitemStatus.all_cached.each do |status| %>
+                  <option value="<%= status.id %>"><%= status.name %></option>
+                <% end %>
               </select>
             </td>
             <td>
@@ -70,8 +70,10 @@
         rows: rows,
         offset: pageNumber - 1
       },
-      success: function(response) {
-        $("#workitems_result").html(response); 
+      success: function(data) {
+        $("#workitems_result").html(data); 
+      },
+      complete: function() {
         $("#loading").hide();
       }
     });
@@ -79,16 +81,16 @@
 
   $(document).ready(function() {
     search(1);
-    var obj = ["#rows", "#type_id", "#status_id"];
-    for (var i = 0; i < obj.length; ++i) {
-      $(obj[i]).change(function() {
+    var ids = ["#rows", "#type_id", "#status_id"];
+    for (var i = 0; i < ids.length; ++i) {
+      $(ids[i]).change(function() {
         search(1);
       });
     }
 
     $("#keyword").keydown(function(e) {
       if(e.keyCode ==  13)
-        search(1); 
+      search(1); 
     })
   });
 </script>

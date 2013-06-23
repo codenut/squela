@@ -25,7 +25,7 @@ class WorkitemsController < ApplicationController
 
   def new 
     @workitem = Workitem.new
-    render 'show'
+    render 'show' 
   end
 
   def create
@@ -55,6 +55,8 @@ class WorkitemsController < ApplicationController
 
   def show
     @workitem = Workitem.find(params[:id])
+    @types = WorkitemType.all_cached
+    puts @types
     render 'show'
   end
 end

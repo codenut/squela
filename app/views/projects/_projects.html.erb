@@ -1,37 +1,30 @@
-<% if @workitems.size > 0 %>
+<% if @projects.size > 0 %>
   <br/>
   <br/>
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Type</th>
-        <th>Summary</th>
-        <th>Owner</th>
-        <th>Priority</th>
-        <th>Status</th>
+        <th>Name</th>
+        <th>URL</th>
       </tr>
     </thead>   
     <tbody>
-      <% for workitem in @workitems %>
+      <% for project in @projects %>
         <tr>
-          <td><%= workitem.id %></td>
+          <td><%= link_to h(project.name), project_path(project) %></td>
+          <td class="center"><%= link_to h(project.url) do %><%= project.url %><% end %></td>
           <td class="center">
-            <%= link_to project_workitem_path(@current_project, workitem) do %>
-              <%= workitem.summary %>
-            <% end %>
+            <%= link_to edit_project_path(project), :class => "ajax-modal" do %><i class="icon-pencil"></i><% end %>&nbsp;
+            <a href="#"><i class="icon-trash"></i></a>
           </td>
-          <td class="center"><%= workitem.user.fullname %></td>
-          <td class="center"><%= workitem.priority.name %> </td>
-          <td class="center"><%= workitem.status_id %> </td>
         </tr>
       <% end %>
     </tbody>
   </table>
-
   <br/>
   <div id="compact-pagination" style="margin: 10px; min-height: 30px">
     <div style="float: left; ">
-      Showing <%= @offset * @limit + 1 %> to <%= @offset * @limit + @workitems.size %> of results <%= @total %>
+      Showing <%= @offset * @limit + 1 %> to <%= @offset * @limit + @projects.size %> of <%= @total %> results
     </div>
     <div id="pagination" style="float: right">
     </div>
@@ -47,6 +40,7 @@
           search(pageNumber);
         }
       });
+      ajax_modal();
     });
   </script>
 <% else %>

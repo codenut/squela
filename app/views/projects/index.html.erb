@@ -18,61 +18,56 @@
         <table width="100%">
           <tr>
             <td>
-              Contains text:&nbsp; <input type="text" style="width: 64%"/> 
+              Contains text:&nbsp; <input id="keyword" type="text" style="width: 64%"/> 
             </td>
             <td>
-              Rows: &nbsp; <select style="width: 60%">
-                <option>10</option>
-                <option>25</option>
-                <option>50</option>
+              Rows: &nbsp; <select id="rows" style="width: 60%">
+                <option value="2">2</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
               </select> 
             </td>
           </tr>
         </table>
       </div>
     </div>         
-    <div class="box-container-toggle">
-      <br/>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>URL</th>
-          </tr>
-        </thead>   
-        <tbody>
-          <% for project in @projects %>
-            <tr>
-              <td><%= link_to h(project.name), project_path(project) %></td>
-              <td class="center"><%= link_to h(project.url) do %><%= project.url %><% end %></td>
-              <td class="center">
-                <%= link_to edit_project_path(project), :class => "ajax-modal" do %><i class="icon-pencil"></i><% end %>&nbsp;
-                <a href="#"><i class="icon-trash"></i></a>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <br/>
-      <div id="compact-pagination" style="margin: 10px; min-height: 30px">
-        <div style="float: left; ">
-          Showing 1 to 10 of 30 results
-        </div>
-        <div id="pagination" style="float: right">
-        </div>
-      </div>
+    <div class="box-container-toggle" id="projects_list">
     </div>
   </div>
 </div>
 <%= stylesheet_link_tag 'simplePagination', :media => 'all' %>
 <%= javascript_include_tag 'jquery.simplePagination' %>
-
 <script>
-  $(function() {
-    $('#pagination').pagination({
-      items: 30,
-      itemsOnPage: 10,
-      cssStyle: 'compact-theme'
+  function search(pageNumber) {
+    $("#loading").show();
+    $.ajax({
+      url: "<%= projects_path %>",
+      method: "GET",
+      data: { 
+        keyword: $("#keyword").val(), 
+        rows: $("#rows").val(), 
+        offset: pageNumber - 1,
+        partial: true 
+      },
+      success: function(data) {
+        $("#projects_list").html(data);
+      }, 
+      complete: function() {
+        $("#loading").hide();
+      }
+    });
+  }
+  $(document).ready(function() {
+    search(1); 
+    var ids = ["#rows"];
+    for(var i = 0; i < ids.length; ++i) {
+      $(ids[i]).change(function() {
+        search(1); 
+      })
+    }
+    $("#keyword").keydown(function(e) {
+      if(e.keyCode == 13)
+        search(1);
     });
   });
 </script>

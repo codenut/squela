@@ -1,5 +1,7 @@
 class Priority < ActiveRecord::Base
   attr_accessible :name
 
-  has_many :workitems
+  def self.all_cached 
+    Rails.cache.fetch('Priority.all') { all }
+  end
 end

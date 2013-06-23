@@ -63,7 +63,7 @@ Squela::Application.routes.draw do
     end
   end
 
-  root :to => 'workitems#index'
+  root :to => 'projects#index'
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.

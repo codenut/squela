@@ -1,3 +1,4 @@
+<%= stylesheet_link_tag  'bootstrap-datetimepicker.min', :media => 'all' %>
 <div id="box-0" class="box">
   <div class="box-header round-top">
     Details
@@ -13,13 +14,14 @@
         <div class="span6" style="padding: 0px; margin: 0px">
           <label class="story-label">Type: </label>
           <%= f.select :type_id, 
-                       options_for_select([["Story", 1], ["Task", 2], ["Defect", 3], @workitem.type_id]), 
+            options_for_select(WorkitemType.all_cached.map { |type| [type.name, type.id] }, 
+                               @workitem.type_id), 
                        {}, 
                        :class => "story-field" %>
           <br/><br/>
           <label class="story-label">Status: </label>
           <%= f.select :status_id,
-                       options_for_select([["New", 1], ["In Progress", 2], ["Done", 3]], @workitem.status_id),
+            options_for_select(WorkitemStatus.all_cached.map { |status| [status.name, status.id] }, @workitem.status_id),
                        {},
                        :class => "story-field" %>
           <br/><br/>
@@ -37,17 +39,27 @@
           <br/><br/>
           <label class="story-label">Priority: </label>
           <%= f.select :priority_id, 
-                       options_for_select([["Low", 1], ["Normal",  2], ["High", 3]], @workitem.priority_id),
+            options_for_select(Priority.all_cached.map { |priority| [priority.name, priority.id] }, @workitem.priority_id),
                        {},
                        :class => "story-field" %>
           <br/><br/>
           <label class="story-label">Estimate: </label>
           <%= f.text_field :estimate, :class => "story-field" %>
           <label class="story-label">Due date: </label>
-          <%= f.text_field :due_date, :class => "story-field" %>
+          <div id="datetimepicker1" class="input-append date" >
+            <%= f.text_field :due_date, :class => "story-field", "data-format" => "yyyy-MM-dd", :style => "width: 245px", :readonly => "true"%>
+            <span class="add-on">
+              <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+            </span>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
+<%= javascript_include_tag 'bootstrap-datetimepicker.min' %>
+<script>
+  $(function() {
+    $("#datetimepicker1").datetimepicker({ pickTime: false }); 
+  });
+</script>
