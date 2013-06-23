@@ -16,11 +16,13 @@
         </tr>
         <tr>
           <td>Confirm Password:</td>
-          <td><input type="password" style="width: 80%"/></td>
+          <td><%= f.text_field :password_confirmation, :style => 'width: 80%' %></td>
         </tr>
         <tr>
           <td>Full Name:</td>
-          <td><%= f.text_field :fullname, :style => 'width: 80%' %></td>
+          <%= f.fields_for :user_detail do |detail| %>
+            <td><%= detail.text_field :fullname, :style => 'width: 80%' %></td>
+          <% end %>
         </tr>
       </table>
     </div>
@@ -42,7 +44,7 @@
         var e = $('#user_' + key)
         e.addClass('required_field');
         if(cnt == 0)
-          e.focus();
+        e.focus();
         cnt += 1;
       }
     })

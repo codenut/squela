@@ -36,7 +36,7 @@
   <% if @votes.size > 0 %>
     <% for vote in @votes %>
       <div id="vote_<%= vote.id %>">
-        <%= link_to h(vote.user.fullname), user_path(vote.user) %>
+        <%= link_to h(vote.user.user_detail.fullname), user_path(vote.user) %>
       </div>
     <% end %>
   <% else %>

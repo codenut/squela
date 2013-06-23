@@ -1,4 +1,5 @@
 Squela::Application.routes.draw do
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -37,6 +38,7 @@ Squela::Application.routes.draw do
   #     resources :sales do
   #       get 'recent', :on => :collection
   #     end
+  devise_for :users
   #   end
 
   # Sample resource route within a namespace:
@@ -64,6 +66,7 @@ Squela::Application.routes.draw do
   end
 
   root :to => 'projects#index'
+  devise_for :users, :controllers => {:registrations => "registrations"}
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
