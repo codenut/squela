@@ -39,7 +39,6 @@ Squela::Application.routes.draw do
   #       get 'recent', :on => :collection
   #     end
   #   end
-
   # Sample resource route within a namespace:
   #   namespace :admin do
   #     # Directs /admin/products/* to Admin::ProductsController
@@ -64,8 +63,15 @@ Squela::Application.routes.draw do
     end
   end
 
+  devise_for :users, :controllers => {:registrations => "registrations"} 
+
+  devise_scope :user do
+    get "/sign_in" => "devise/sessions#new"
+    post "/sign_in" => "devise/sessions#create"
+    get "/sign_out" => "devise/sessions#destroy" 
+  end
+
   root :to => 'projects#index'
-  devise_for :users, :controllers => {:registrations => "registrations"}
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
