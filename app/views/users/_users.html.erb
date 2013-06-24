@@ -1,0 +1,53 @@
+<br/>
+<br/>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Full Name</th>
+      <th>Login Details</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>   
+  <tbody>
+    <% for user in @users %> 
+      <tr>
+        <td><%= link_to user do %><i class="icon-user"></i>&nbsp;<%= user.email %><% end %></td>
+        <td class="center">
+          <%= link_to h(user.user_detail.fullname), user %>
+        </td>
+        <td class="center">
+          Count: <span class="badge badge-info">10</span><br/>
+          Last:&nbsp;&nbsp;&nbsp;&nbsp; Today at 10:05 PM
+        </td>
+        <td class="center"><%= user.id %></td>
+        <td class="center">
+          <a href="#"><i class="icon-pencil"></i></a>&nbsp;
+          <a href="#"><i class="icon-trash"></i></a>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  <br/>
+  <div id="compact-pagination" style="margin: 10px; min-height: 30px">
+    <div style="float: left; ">
+      Showing 1 to 10 of 30 results
+    </div>
+    <div id="pagination" style="float: right">
+    </div>
+  </div>
+</div>
+<script>
+  $(function() {
+    $('#pagination').pagination({
+      items: <%= @total %>,
+      itemsOnPage: <%= @limit %>,
+      cssStyle: 'compact-theme',
+      currentPage: <%= @offset %> + 1,
+      onPageClick: function(pageNumber, e) {
+        search(pageNumber); 
+      }
+    });
+  });
+</script>
