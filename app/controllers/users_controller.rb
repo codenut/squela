@@ -6,23 +6,22 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    @user_detail = @user.user_detail.build
+    @user_detail = @user.build_user_detail
     @label = 'New'
     render :partial => 'form' 
   end
 
+  def show
+    @user = User.find(params[:id])
+  end
+
   def create
     @user = User.new(params[:user])
-    head :ok 
     if @user.save
       render :js => "window.location = '#{user_path(@user)}'", :notice => 'User was successfully created.' 
     else
       render :json => @user.errors
     end
-  end
-
-  def show
-    @user = User.find(params[:id])
   end
 
   def search

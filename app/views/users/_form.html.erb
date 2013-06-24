@@ -21,7 +21,7 @@
         <tr>
           <td>Full Name:</td>
           <%= f.fields_for :user_detail do |detail| %>
-            <td><%= detail.text_field :fullname, :style => 'width: 80%' %></td>
+            <td><%= detail.text_field :fullname, :style => 'width: 80%', :id => 'user_detail.fullname'%></td>
           <% end %>
         </tr>
       </table>
@@ -39,17 +39,23 @@
     bind('ajax:error', function(evt, xhr, status, error){
     })
     .bind('ajax:success', function(evt, xhr, status, error) {
-      var cnt = 0;
-      for(key in xhr) {
-        var e = $('#user_' + key)
-        e.addClass('required_field');
-        if(cnt == 0)
-        e.focus();
-        cnt += 1;
+      if($.type(xhr) === 'object') {
+        var cnt = 0;
+        for(key in xhr) {
+          var e = $('[id$="' + key + '"]')
+          e.addClass('required_field');
+          if(cnt == 0) {
+            e.focus();
+          }
+          cnt += 1;
+        }
       }
     })
     .bind('ajax:beforeSend', function() {
       $('#submit').hide();
+      $("input").each(function(i) {
+        $(this).removeClass('required_field'); 
+      }) 
       $('#spinner').show();
     })
     .bind('ajax:complete', function() {

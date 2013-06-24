@@ -63,13 +63,13 @@
             <tr>
               <td><%= link_to user do %><i class="icon-user"></i>&nbsp;<%= user.email %><% end %></td>
               <td class="center">
-                <%= link_to h(user.fullname), user %>
+                <%= link_to h(user.user_detail.fullname), user %>
               </td>
               <td class="center">
                 Count: <span class="badge badge-info">10</span><br/>
                 Last:&nbsp;&nbsp;&nbsp;&nbsp; Today at 10:05 PM
               </td>
-              <td class="center"><%= user.type_id %></td>
+              <td class="center"><%= user.id %></td>
               <td class="center">
                 <a href="#"><i class="icon-pencil"></i></a>&nbsp;
                 <a href="#"><i class="icon-trash"></i></a>

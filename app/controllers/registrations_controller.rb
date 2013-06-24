@@ -1,5 +1,4 @@
 class Devise::RegistrationsController < Devise::RegistrationsController
-  respond_to :json, :js
 
   def create
     @user = User.new(params[:user])

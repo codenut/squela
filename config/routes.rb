@@ -38,7 +38,6 @@ Squela::Application.routes.draw do
   #     resources :sales do
   #       get 'recent', :on => :collection
   #     end
-  devise_for :users
   #   end
 
   # Sample resource route within a namespace:

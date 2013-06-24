@@ -23,7 +23,7 @@
       tokenLimit: 5,
       prePopulate: [
       <% for watch in @watches %>
-        {id: <%= watch.user.id %>, fullname: "<%= watch.user.fullname %>", watch_id: <%= watch.id %>},
+        {id: <%= watch.user.id %>, fullname: "<%= watch.user.user_detail.fullname %>", watch_id: <%= watch.id %>},
       <% end %>
       ],
       onAdd: function(item) {
