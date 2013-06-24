@@ -12,7 +12,7 @@
           <ul class="quick-info">
             <li>
             <span class="quick-info-left">Reporter: </span>
-            <span><a rel="popover" href="#">Michael Valladolid</a></span>
+            <span><%= link_to h(@workitem.user.user_detail.fullname), @workitem.user %></span>
             </li>
             <li>
             <span class="quick-info-left">Watches: </span>

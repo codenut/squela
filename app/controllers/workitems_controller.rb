@@ -31,7 +31,7 @@ class WorkitemsController < ApplicationController
   def create
     @workitem = Workitem.new(params[:workitem])
     @workitem.project_id = params[:project_id]
-    @workitem.user_id = 1
+    @workitem.user_id = current_user.id
 
     if @workitem.save
       Vote.create(:user_id => @workitem.user_id, 

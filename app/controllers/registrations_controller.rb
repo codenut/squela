@@ -1,5 +1,9 @@
 class Devise::RegistrationsController < Devise::RegistrationsController
 
+  def new
+
+  end
+
   def create
     @user = User.new(params[:user])
     if @user.save
@@ -8,4 +12,5 @@ class Devise::RegistrationsController < Devise::RegistrationsController
       render :json => @user.errors
     end
   end
+
 end
