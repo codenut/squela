@@ -67,7 +67,8 @@ Squela::Application.routes.draw do
     get "/sign_in" => "devise/sessions#new", :as => :new_user_session
     post "/sign_in" => "devise/sessions#create", :as => :user_session
     get "/sign_out" => "devise/sessions#destroy", :as => :destroy_user_session
-    get "/register" => "devise/registrations#new", :as => :new_user_registration
+    get "/sign_up" => "registrations#new", :as => :new_user_registration
+    post "/sign_up" => "registrations#create", :as => :user_registration
   end
 
   root :to => 'projects#index'

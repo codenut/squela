@@ -1,7 +1,19 @@
 class UsersController < ApplicationController
 
   def index
-    @users = User.find(:all, :conditions => {:is_deleted => false}) 
+    where = ["user_details.fullname LIKE '%#{params[:keyword]}%'"]
+
+    @limit = params[:rows].nil? ? 2 : params[:rows].to_i
+    @offset = params[:offset].nil? ? 0 : params[:offset].to_i
+
+    @users = User.joins(:user_detail).where(where.join(" AND ")) 
+    @total = @users.size
+
+    @users = @users.offset(@offset * @limit).limit(@limit)
+
+    if params[:partial]
+      render :partial => "users/users"
+    end
   end
 
   def new
