@@ -1,27 +1,29 @@
-<div>
+<div style="width: 500px">
   <%= form_for resource, :url => user_registration_path, :remote => :true do |f| %>
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" >&times;</button>
       <h3><%= @label %> User</h3>
     </div>
+    <div class="alert alert-error fade in hide" id="ajax-error" >
+    </div>
     <div class="modal-body">
       <table width="80%" align="center">
         <tr>
           <td>Email:</td>
-          <td><%= f.text_field :email, :style => 'width: 80%' %></td>
+          <td><%= f.text_field :email, :style => 'width: 100%' %></td>
         </tr>
         <tr>
           <td>Password:</td>
-          <td><%= f.text_field :password, :style => 'width: 80%' %></td>
+          <td><%= f.text_field :password, :style => 'width: 100%' %></td>
         </tr>
         <tr>
           <td>Confirm Password:</td>
-          <td><%= f.text_field :password_confirmation, :style => 'width: 80%' %></td>
+          <td><%= f.text_field :password_confirmation, :style => 'width: 100%' %></td>
         </tr>
         <tr>
           <td>Full Name:</td>
           <%= f.fields_for :user_detail do |detail| %>
-            <td><%= detail.text_field :fullname, :style => 'width: 80%', :id => 'user_detail.fullname'%></td>
+            <td><%= detail.text_field :fullname, :style => 'width: 100%', :id => 'user_detail.fullname'%></td>
           <% end %>
         </tr>
       </table>
@@ -41,14 +43,20 @@
     .bind('ajax:success', function(evt, xhr, status, error) {
       if($.type(xhr) === 'object') {
         var cnt = 0;
+        var error = $("#ajax-error");
+        error.html('');
         for(key in xhr) {
           var e = $('[id$="' + key + '"]')
           e.addClass('required_field');
           if(cnt == 0) {
             e.focus();
           }
+          label = key.split(".")[key.split(".").length - 1];
+          error.append(label.charAt(0).toUpperCase() + label.slice(1) + " " + xhr[key] + "</br>");
           cnt += 1;
         }
+        error.show(); 
+        window.setTimeout(function() { error.hide() }, 5000);
       }
     })
     .bind('ajax:beforeSend', function() {

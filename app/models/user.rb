@@ -4,9 +4,11 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_one :user_detail
+  has_many :projects
+
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :user_detail_attributes
-  has_one :user_detail
   accepts_nested_attributes_for :user_detail
 
   def self.search_user_watch(workitem_id, keyword)

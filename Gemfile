@@ -8,6 +8,7 @@ gem 'rails', '3.2.11'
 gem 'mysql2'
 gem 'dalli'
 gem 'devise'
+gem 'spork', '~> 0.9.0.rc'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -23,6 +24,12 @@ group :assets do
 end
 
 gem 'jquery-rails'
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'watchr'
+  gem "factory_girl_rails", "~> 4.0"
+end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!, :current_project, :get_projects, :get_workitems
 
   def current_project
-    @current_project = Project.select("id").find(1)
+    @current_project = Project.limit(1).select("id, name").where(:user_id => current_user)[0] if current_user
   end
 
   def get_projects

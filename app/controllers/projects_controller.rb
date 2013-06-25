@@ -1,9 +1,5 @@
 class ProjectsController < ApplicationController
 
-  def show
-    @project = Project.find(params[:id])
-  end
-
   def index 
     @limit = params[:rows].nil? ? 2 : params[:rows].to_i
     @offset = params[:offset].nil? ? 0 : params[:offset].to_i
@@ -18,24 +14,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def create
-    @project = Project.new(params[:project])
-    if @project.save
-      render :js => "window.location = '#{project_path(@project)}'", :notice => 'Project was successfully created.'
-    else
-      render :json => @project.errors
-    end
-  end
-
-  def update
-    @project = Project.find(params[:id]) 
-    if @project.update_attributes(params[:project])
-      render :js => "window.location = '#{project_path(@project)}'", :notice => 'Project was successfully updated.'
-    else
-      render :json => @project.errors
-    end
-  end
-
   def new
     @project = Project.new
     @label = 'New Project'
@@ -47,4 +25,31 @@ class ProjectsController < ApplicationController
     @label = 'Update Project'
     render :partial => 'form'
   end
+
+  def show
+    @project = Project.find(params[:id])
+  end
+
+  def create
+    @project = Project.new(params[:project])
+    @project.user = current_user
+
+    if @project.save
+      render :js => "window.location = '#{project_path(@project)}'", 
+             :notice => 'Project was successfully created.'
+    else
+      render :json => @project.errors
+    end
+  end
+
+  def update
+    @project = Project.find(params[:id]) 
+    if @project.update_attributes(params[:project])
+      render :js => "window.location = '#{project_path(@project)}'", 
+             :notice => 'Project was successfully updated.'
+    else
+      render :json => @project.errors
+    end
+  end
+
 end

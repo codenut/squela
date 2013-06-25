@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20130623081521) do
 
   create_table "projects", :force => true do |t|
     t.string   "name"
+    t.integer  "user_id"
     t.string   "url"
     t.string   "description"
     t.boolean  "is_deleted",  :default => false

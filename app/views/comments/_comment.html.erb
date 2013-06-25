@@ -2,7 +2,7 @@
 <div class="box-content" style="padding: 0px;">
   <div style="border-bottom: 1px solid #DDDDDD; padding: 10px 10px 10px 20px">
     <div style="padding-bottom: 5px"> 
-      <a><i class="icon-user"></i>&nbsp;&nbsp;<%= my_comment.user.fullname %></a> added a comment 
+      <a><i class="icon-user"></i>&nbsp;&nbsp;<%= my_comment.user.user_detail.fullname %></a> added a comment 
       <span style="float: right;"><%= my_comment.created_at.strftime("%B %d, %Y %I:%M %p") %></span>
     </div>
     <div style="padding:10px">
