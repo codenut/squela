@@ -1,54 +1,49 @@
-<div id="box-0" class="box" >
-  <div class="box-header round-top">
-    Quick Information
-  </div>         
-  <div class="box-container-toggle">
-    <% if !current_page?(new_project_workitem_path) %>
-      <div class="box-content">
-        <div>
-          <legend>
-            People
-          </legend>
-          <ul class="quick-info">
-            <li>
-            <span class="quick-info-left">Reporter: </span>
-            <span><%= link_to h(@workitem.user.user_detail.fullname), @workitem.user %></span>
-            </li>
-            <li>
-            <span class="quick-info-left">Watches: </span>
-            <div id="watch_div">
-              <%= render :partial => 'watches/index', :locals => {:watches => @workitem.watches, :workitem_id => @workitem.id} %>
-            </div>
-            </li>
-            <li> 
-            <span class="quick-info-left">Votes: </span>
-            <div id="vote_div">
-              <%= render :partial => 'votes/index', :locals => {:votes => @workitem.votes, :workitem_id => @workitem_id} %> 
-            </div>
-            </li>
-          </ul>
-          <legend>
-            <span>
-              Dates
-            </span>
-          </legend>
-          <ul class="quick-info">
-            <li>
-            <span class="quick-info-left">Date Created: </span>
-            <span><%= date_to_s(@workitem.created_at) %></span>
-            </li>
-            <li>
-            <span class="quick-info-left">Last Updated: </span>
-            <span><%= date_to_s(@workitem.updated_at) %></span>
-            </li>
-          </ul>
-        </div>
+<span class="title">
+  Quick Information
+</span>         
+<div class="content">
+  <% if !current_page?(new_project_workitem_path) %>
+    <legend>
+      People
+    </legend>
+    <ul class="quick-info">
+      <li>
+      <span class="quick-info-left">Reporter: </span>
+      <span><%= link_to h(@workitem.user.user_detail.fullname), @workitem.user %></span>
+      </li>
+      <li>
+      <span class="quick-info-left">Watches: </span>
+      <div id="watch_div">
+        <%= render :partial => 'watches/index', :locals => {:watches => @workitem.watches, :workitem_id => @workitem.id} %>
       </div>
-    <% end %>
-    <div class="box-content" style="border-top: 1px solid #DDDDDD">
-      <%= f.submit 'Save', :class => :btn, :style => "width: 47%", :id => :submit, 'data-loading-text' => 'Saving...' %>&nbsp;&nbsp;&nbsp;
-      <%= link_to h("Cancel"), project_workitems_path(@current_project), :class => "btn", :style => "width: 35%" %> 
-    </div>
+      </li>
+      <li> 
+      <span class="quick-info-left">Votes: </span>
+      <div id="vote_div">
+        <%= render :partial => 'votes/index', :locals => {:votes => @workitem.votes, :workitem_id => @workitem_id} %> 
+      </div>
+      </li>
+    </ul>
+    <legend>
+      <span>
+        Dates
+      </span>
+    </legend>
+    <ul class="quick-info">
+      <li>
+      <span class="quick-info-left">Date Created: </span>
+      <span><%= date_to_s(@workitem.created_at) %></span>
+      </li>
+      <li>
+      <span class="quick-info-left">Last Updated: </span>
+      <span><%= date_to_s(@workitem.updated_at) %></span>
+      </li>
+    </ul>
+  <% end %>
+  <legend></legend>
+  <div class="quick-info-btn" >
+    <%= f.submit 'Save', :class => :btn, :style => "width: 47%", :id => :submit, 'data-loading-text' => 'Saving...' %>&nbsp;&nbsp;&nbsp;
+    <%= link_to h("Cancel"), project_workitems_path(@current_project), :class => "btn", :style => "width: 35%" %> 
   </div>
 </div>
 <script>

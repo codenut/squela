@@ -1,20 +1,25 @@
-<div id="box-0" class="box" style="border-bottom: 0px;">
-  <div class="box-header round-top">
-    Discussions
-  </div>         
-  <div class="box-container-toggle">
-    <div class="comment-box">
-      <% for comment in @workitem.comments %>
-        <%= render :partial => 'comments/comment', :locals => {:comment => comment} %>
-      <% end %>
+<div class="row-fluid">
+  <div class="span12 panel">
+    <span class="title">
+      Discussions
+    </span>         
+    <div class="people">
+      <div class="row-fluid">
+        <div id="comment-box">
+          <% for comment in @workitem.comments %>
+            <%= render :partial => 'comments/comment', :locals => {:comment => comment} %>
+          <% end %>
+        </div>
+      </div>
     </div>
     <div class="box-content" style="padding: 0px;">
-      <div style="padding: 10px 10px 20px 20px">
+      <div style="padding: 20px 10px 20px 20px">
         <div>
           <textarea style="width: 98%" rows="3" id='description'></textarea>
+          </br>
+          </br>
           <%= image_tag 'spinner_small.gif', :style => 'display:none; float:right', :id => 'spinner' %> 
           <a class="btn" style="float: right;" id='comment-link' data-loading-text='Saving...'>Comment</a>
-          </br>
           </br>
         </div>
       </div>
@@ -39,7 +44,7 @@
           } else {
           $('#description').removeClass('required_field'); 
           $('#description').val('');
-          $('.comment-box').append(data).children(':last').hide().fadeIn(2000);
+          $('#comment-box').append(data).children(':last').hide().fadeIn(2000);
         }
       },
       complete: function() {

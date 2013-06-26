@@ -1,11 +1,11 @@
 <div class="row-fluid">
-  <%= form_for [@current_project, @workitem], :remote => true do |f| %>
+  <%= form_for [@current_project, @workitem], :remote => true, :html => { :class => 'form-horizontal' } do |f| %>
     <div class="row-fluid">
-      <div class="span9" >
+      <div class="span12" >
         <h4>
           Workitem <% if !@workitem.id.nil? %> <%= @workitem.id %> <% else %> < * > <% end %>
         </h4>
-        <br/>
+        </br>
       </div>
     </div>
     <div class="row-fluid">
@@ -17,7 +17,7 @@
             <%= render 'discussions' %>
           <% end %>
         </div>
-        <div class="span3" >
+        <div class="span3 panel" >
           <%= render :partial => 'quick_info', :locals => {:f => f} %>
         </div>
       </div>
