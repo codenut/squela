@@ -2,7 +2,7 @@
 
 <div class="person">
   <div class="span8">
-    <img class="pic" src="img/luke.png" />
+    <%=  image_tag "anon_user.png", :class => :pic, :width => "50" %>
     <div class="description" style="padding: 0px">
       <div>
         <span class="h5"><%= link_to my_comment.user do %><%= my_comment.user.user_detail.fullname %><% end %></span> added a comment
@@ -11,7 +11,7 @@
     </div>
   </div>
   <div class="span4">
-    <div style="text-align: right; padding-right: 20px">
+    <div style="text-align: right; padding-right: 32px">
       <span><%= my_comment.created_at.strftime("%B %d, %Y %I:%M %p") %></span>
     </div>
   </div>

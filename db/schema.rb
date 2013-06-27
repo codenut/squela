@@ -96,19 +96,19 @@ ActiveRecord::Schema.define(:version => 20130623081521) do
 
   create_table "workitems", :force => true do |t|
     t.string   "summary"
-    t.integer  "type_id"
     t.integer  "project_id"
-    t.integer  "points"
-    t.integer  "status_id"
-    t.integer  "priority_id"
     t.integer  "user_id"
+    t.integer  "workitem_type_id"
+    t.integer  "workitem_status_id"
+    t.integer  "priority_id"
+    t.integer  "points"
     t.string   "estimate"
     t.string   "tags"
     t.date     "due_date"
     t.string   "description"
-    t.boolean  "is_deleted",  :default => false
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.boolean  "is_deleted",         :default => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
   end
 
 end

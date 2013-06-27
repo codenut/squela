@@ -1,12 +1,44 @@
-<div class="form-signin">
-  <%= form_for(resource, :url => user_session_path) do |f| %>
-    <h2 class="form-signin-heading">Please sign in</h2>
-    <%= f.text_field :email, :class => "input-block-level", :placeholder => "Email address" %>
-    <%= f.password_field :password, :class => "input-block-level", :placeholder => "Password" %>
-    <label class="checkbox">
-      <%= f.check_box :remember_me %> Remember me
-    </label>
-    <%= link_to h("Sign up"), new_user_registration_path, :class => "btn ajax-modal" %>
-    <%= f.submit "Sign In", :class => "btn btn btn-primary" %> 
-  <% end %>
-</div>
+<br/>
+<br/>
+<%= form_for resource, :url => user_session_path, :html => { :class => "form-horizontal" } do |f| %>
+  <div class="row-fluid" >
+    <div class="span5 panel" style="float: none; margin: 0 auto">
+      <div class="title">
+        Sign in
+      </div>
+      <div class="content">
+        </br>
+        <div class="control-group">
+          <label class="control-label">
+            Email:
+          </label>
+          <div class="controls">
+            <%= f.text_field :email, :style => "width: 95%", :placeholder => "Email address" %>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">
+            Password:
+          </label>
+          <div class="controls">
+            <%= f.password_field :password, :class => "input-block-level", :placeholder => "Password" %>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <label class="checkbox">
+              <%= f.check_box :remember_me %> Remember me
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-actions" style="margin-bottom: 0px; margin-top: -10px">
+        <div style="float: right">
+          <%= link_to h("Sign up"), new_user_registration_path, :class => "btn ajax-modal" %>
+          &nbsp;
+          <%= f.submit "Sign In", :class => "btn btn btn-primary" %> 
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

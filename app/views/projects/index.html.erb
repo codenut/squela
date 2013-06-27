@@ -1,9 +1,4 @@
 <div class="box-content">
-  <div style="float: left">
-    <h4 class="width: 100px">
-      Search Projects
-    </h4>
-  </div>
   <div class="btn-group" style="float: right">
     <%= link_to new_project_path, :class => "btn ajax-modal" do %>
       <i class="icon-plus"></i>&nbsp;Create Project
@@ -12,26 +7,27 @@
   <br/>
   <br/>
   <br/>
-  <div id="box-0" class="box" >
-    <div class="box-header round-top">
-      <div>
-        <table width="100%">
-          <tr>
-            <td>
-              Contains text:&nbsp; <input id="keyword" type="text" style="width: 64%"/> 
-            </td>
-            <td>
-              Rows: &nbsp; <select id="rows" style="width: 60%">
-                <option value="2">2</option>
-                <option value="5">5</option>
-                <option value="10">10</option>
-              </select> 
-            </td>
-          </tr>
-        </table>
-      </div>
+  <div class="panel no-top-bot-border" >
+    <div class="title">
+      Search Projects
+    </div>
+    <div class="ten-padding">
+      <table width="100%">
+        <tr>
+          <td>
+            Contains text:&nbsp; <input id="keyword" type="text" style="width: 64%"/> 
+          </td>
+          <td>
+            Rows: &nbsp; <select id="rows" style="width: 60%">
+              <option value="2">2</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+            </select> 
+          </td>
+        </tr>
+      </table>
     </div>         
-    <div class="box-container-toggle" id="projects_list">
+    <div class="panel no-side-border" id="projects_list" >
     </div>
   </div>
 </div>
@@ -67,7 +63,7 @@
     }
     $("#keyword").keydown(function(e) {
       if(e.keyCode == 13)
-        search(1);
+      search(1);
     });
   });
 </script>

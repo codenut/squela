@@ -1,4 +1,6 @@
 <% if @workitems.size > 0 %>
+  <br/>
+  <br/>
   <table class="table sortable table-striped">
     <thead>
       <tr>
@@ -20,7 +22,7 @@
           </td>
           <td class="center"><%= workitem.user.user_detail.fullname %></td>
           <td class="center"><%= workitem.priority.name %> </td>
-          <td class="center"><%= workitem.status_id %> </td>
+          <td class="center"><%= workitem.workitem_status.name %> </td>
         </tr>
       <% end %>
     </tbody>
@@ -48,7 +50,7 @@
     });
   </script>
 <% else %>
-  <div style="margin: auto; padding-top: 100px; min-height: 100px; width: 350px; text-align: center;">
+  <div style="margin: auto; padding-top: 100px; min-height: 150px; width: 350px; text-align: center;">
     Your query returned an empty result
   </div>
 <% end %>

@@ -9,7 +9,7 @@
         <div class="row-fluid">
           <div class="span12">
             <div class="control-group">
-              <label class="control-label">Summary: <span class="required">*</span></label>
+              <label class="control-label align-left">Summary: <span class="required">*</span></label>
               <div class="controls">
                 <%= f.text_field :summary, :style => "width: 96%"%>
               </div>
@@ -21,13 +21,13 @@
             <div class="control-group">
               <label class="control-label">Type: </label>
               <div class="controls">
-                <%= f.select :type_id, options_for_select(WorkitemType.all_cached.map { |type| [type.name, type.id] }, @workitem.type_id), {} %>
+                <%= f.select :workitem_type_id, options_for_select(WorkitemType.all_cached.map { |type| [type.name, type.id] }, @workitem.workitem_type_id), {} %>
               </div>
             </div>
             <div class="control-group">
               <label class="control-label">Status: </label>
               <div class="controls">
-                <%= f.select :status_id, options_for_select(WorkitemStatus.all_cached.map { |status| [status.name, status.id] }, @workitem.status_id), {} %>
+                <%= f.select :workitem_status_id, options_for_select(WorkitemStatus.all_cached.map { |status| [status.name, status.id] }, @workitem.workitem_status_id), {} %>
               </div>
             </div>
             <div class="control-group">

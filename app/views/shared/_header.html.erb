@@ -67,7 +67,9 @@
           </a>
           <ul class="dropdown-menu">
             <li><label>Current Project</label></li>
-            <li><%= link_to h(@current_project.name), @current_project %></li>
+            <% unless @current_project.nil? %>
+              <li><%= link_to h(@current_project.name), @current_project %></li>
+            <% end %>
             <% if @my_projects.size > 0 %>
               <li class="divider"></li>
               <li><label>Recent Project</label></li>

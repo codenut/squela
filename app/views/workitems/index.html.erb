@@ -1,17 +1,17 @@
 <div class="box-content">
-  <div style="float: left">
-    <h4 class="width: 100px">
-      Search Workitems
-    </h4>
-  </div>
   <div class="btn-group" style="float: right;">
-    <%= link_to new_project_workitem_path, :class => 'btn' do %><i class="icon-plus"></i>&nbsp; Add Workitem<%end%>
+    <%= link_to new_project_workitem_path, :class => 'btn' do %>
+      <i class="icon-plus"></i>&nbsp; Add Workitem
+    <% end %>
   </div>
   <br/>
   <br/>
   <br/>
-  <div class="panel" style="border-bottom: none; border-radius: 4px 4px 0 0">
-    <div style="padding:10px;">
+  <div class="panel no-top-bot-border" >
+    <div class="title">
+      Search Workitems
+    </div>
+    <div class="ten-padding">
       <table width="100%">
         <tr>
           <td>
@@ -43,8 +43,8 @@
         </tr>
       </table>
     </div>
-  </div>
-  <div class="panel" id="workitems_result" style="margin-top: -26px; border-radius: 0">
+    <div class="panel no-side-border" id="workitems_result" >
+    </div>
   </div>
 </div>
 <%= stylesheet_link_tag 'simplePagination', :media => 'all' %>
