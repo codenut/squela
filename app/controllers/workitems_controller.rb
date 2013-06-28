@@ -49,14 +49,13 @@ class WorkitemsController < ApplicationController
       render :js => "window.location = '#{project_workitem_path(@current_project, @workitem)}'", 
         :notice => 'Workitem was successfully created.'
     else
-      render :json => {'errors' => @workitem.errors}
+      render :json => {:errors => @workitem.errors}
     end
   end
 
   def show
     @workitem = Workitem.find(params[:id])
     @types = WorkitemType.all_cached
-    puts @types
     render 'show'
   end
 end

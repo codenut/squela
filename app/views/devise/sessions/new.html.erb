@@ -8,32 +8,26 @@
       </div>
       <div class="content">
         </br>
-        <div class="control-group">
-          <label class="control-label">
-            Email:
-          </label>
-          <div class="controls">
-            <%= f.text_field :email, :style => "width: 95%", :placeholder => "Email address" %>
+        <div class="control-group ">
+          <div class="controls signin-controls">
+            <%= f.text_field :email, :style => "width: 97%", :placeholder => "Email address" %>
           </div>
         </div>
         <div class="control-group">
-          <label class="control-label">
-            Password:
-          </label>
-          <div class="controls">
+          <div class="controls signin-controls">
             <%= f.password_field :password, :class => "input-block-level", :placeholder => "Password" %>
           </div>
         </div>
         <div class="control-group">
-          <div class="controls">
+          <div class="controls signin-controls">
             <label class="checkbox">
               <%= f.check_box :remember_me %> Remember me
             </label>
           </div>
         </div>
       </div>
-      <div class="form-actions" style="margin-bottom: 0px; margin-top: -10px">
-        <div style="float: right">
+      <div class="form-actions" style="margin-bottom: 0px; margin-top: -10px; height: 10px; ">
+        <div style="margin-top: -8px;">
           <%= link_to h("Sign up"), new_user_registration_path, :class => "btn ajax-modal" %>
           &nbsp;
           <%= f.submit "Sign In", :class => "btn btn btn-primary" %> 

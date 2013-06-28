@@ -14,6 +14,7 @@ class Workitem < ActiveRecord::Base
   has_many :votes
   has_many :watches
   
+  belongs_to :project
   belongs_to :priority
   belongs_to :workitem_status
   belongs_to :workitem_type

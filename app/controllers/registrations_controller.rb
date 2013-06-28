@@ -17,7 +17,7 @@ class RegistrationsController < Devise::RegistrationsController
         render :js => "window.location = '#{user_path(@user)}'", :notice => 'User was successfully created.' 
       end
     else
-      render :json => @user.errors
+      render :json => { :errors => @user.errors }
     end
   end
 

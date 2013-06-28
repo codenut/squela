@@ -6,7 +6,6 @@
     </div>
     <div class="modal-body">
       <div class="alert alert-error fade in hide" id="ajax-error" >
-        Oops! Something wrong happened. Please load the page.
       </div>
       <table align="center" width="80%"> 
         <tr>
@@ -38,14 +37,19 @@
       window.setTimeout(function() { error.alert('close') }, 5000);
     })
     .bind('ajax:success', function(evt, xhr, status, error) {
-      if($.type(xhr) === 'object') {
+      var error = $("#ajax-error");
+      error.html("");
+      if(xhr['errors']) {
         var cnt = 0;
-        for(key in xhr) {
+        for(key in xhr['errors']) {
           var e = $('#project_' + key)
           e.addClass('required_field');
           if(cnt == 0) e.focus();
           cnt += 1;
+          error.append(key.charAt(0).toUpperCase() + key.slice(1) + " " + xhr['errors'][key] + "</br>");
         }
+        error.show();
+        window.setTimeout(function() { error.hide() }, 5000);
       }
     })
     .bind('ajax:beforeSend', function() {

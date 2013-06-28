@@ -1,32 +1,98 @@
-<div id="box-0" class="box">
-  <div class="box-header round-top">
-    Project - <strong><%= @project.name %></strong>
-  </div>         
-  <div class="box-container-toggle">
-    <div class="box-content">
-      <div class="row-fluid">
-        <div class="span6">
-          <strong>
-            Welcome to your project
-          </strong>
-          <br/>
-          <br/>
-          Everything you need to know about how your project is running is tracked on this page. As your project evolves, the information will be updated. Use the tabs on the left to navigate within your project.
-          <br/>
-          <br/>
-          Change the <%= link_to 'project description', {:controller => :projects, :action => :edit}, :class => 'ajax-modal' %> details about your project.
-        </div>
-        <div class="span6 well">
-          <div style="margin-bottom: -5px">
-            <strong>
-              Get project started 
-            </strong>
+<div class="row-fluid">
+  <div class="panel span12">
+    <div class="title">
+      Project - <strong><%= @project.name %></strong>
+    </div>         
+    <div class="content">
+      <div>
+        <div>
+          <div class="row-fluid">
+            <div class="span6">
+              <strong>
+                Welcome to your project
+              </strong>
+              <br/>
+              <br/>
+              Everything you need to know about how your project is running is tracked on this page. As your project evolves, the information will be updated. Use the tabs on the left to navigate within your project.
+              <br/>
+              <br/>
+              Change the <%= link_to 'project description', {:controller => :projects, :action => :edit}, :class => 'ajax-modal' %> details about your project.
+            </div>
+            <% if @project.workitems.size < 1 %>
+              <div class="span6 well">
+                <div style="margin-bottom: -5px">
+                  <strong>
+                    Get project started 
+                  </strong>
+                </div>
+                </br>
+                <div style="margin-bottom: 10px">
+                  Create your first workitem by clicking on the "Create workitem" button.
+                </div>
+                <%= link_to 'Create Workitem', new_project_workitem_path(@current_project) , :class => :btn %>
+              </div>
+            <% else %>
+              <div class="span6 panel"> 
+                <span class="title title-grey">
+                  Activity Stream
+                </span>
+                <div class="people">
+                  <div class="row-fluid">
+                    <div class="person">
+                      <div class="span8">
+                        <%=  image_tag "anon_user.png", :class => :pic, :width => "50" %>
+                        <div class="description" style="padding: 0px">
+                          <div>
+                            <span class="h5">Test</span> added a comment
+                          </div>
+                          <p class="user-comment">Test</p>
+                        </div>
+                      </div>
+                      <div class="span4">
+                        <div style="text-align: right; padding-right: 32px">
+                          <span>Date</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class ="span12 divider" style="height: 1px"></div>
+                    <div class="person">
+                      <div class="span8">
+                        <%=  image_tag "anon_user.png", :class => :pic, :width => "50" %>
+                        <div class="description" style="padding: 0px">
+                          <div>
+                            <span class="h5">Test</span> added a comment
+                          </div>
+                          <p class="user-comment">Test</p>
+                        </div>
+                      </div>
+                      <div class="span4">
+                        <div style="text-align: right; padding-right: 32px">
+                          <span>Date</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class ="span12 divider" style="height: 1px"></div>
+                    <div class="person">
+                      <div class="span8">
+                        <%=  image_tag "anon_user.png", :class => :pic, :width => "50" %>
+                        <div class="description" style="padding: 0px">
+                          <div>
+                            <span class="h5">Test</span> added a comment
+                          </div>
+                          <p class="user-comment">Test</p>
+                        </div>
+                      </div>
+                      <div class="span4">
+                        <div style="text-align: right; padding-right: 32px">
+                          <span>Date</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
           </div>
-          </br>
-          <div style="margin-bottom: 10px">
-            Create your first workitem by clicking on the "Create workitem" button.
-          </div>
-          <%= link_to 'Create Workitem', new_project_workitem_path(@current_project) , :class => :btn %>
         </div>
       </div>
     </div>

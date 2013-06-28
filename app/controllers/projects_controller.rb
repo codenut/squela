@@ -38,7 +38,7 @@ class ProjectsController < ApplicationController
       render :js => "window.location = '#{project_path(@project)}'", 
              :notice => 'Project was successfully created.'
     else
-      render :json => @project.errors
+      render :json => {:errors => @project.errors}
     end
   end
 
@@ -48,7 +48,7 @@ class ProjectsController < ApplicationController
       render :js => "window.location = '#{project_path(@project)}'", 
              :notice => 'Project was successfully updated.'
     else
-      render :json => @project.errors
+      render :json => {:errors => @project.errors}
     end
   end
 
