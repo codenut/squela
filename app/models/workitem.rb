@@ -20,4 +20,11 @@ class Workitem < ActiveRecord::Base
   belongs_to :workitem_type
   belongs_to :user
   validates :summary, :presence => true
+
+  JSON_ATTR = ["id", "summary", "project_id"]
+
+  def as_json(opt = {})
+    opt[:only] = JSON_ATTR
+    super(opt)
+  end
 end

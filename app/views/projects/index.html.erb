@@ -1,34 +1,27 @@
-<div class="box-content">
-  <div class="btn-group" style="float: right">
-    <%= link_to new_project_path, :class => "btn ajax-modal" do %>
-      <i class="icon-plus"></i>&nbsp;Create Project
-    <% end %>
+<div class="panel no-top-bot-border" >
+  <span class="title">
+    Search Projects
+  </span>
+  <div class="row-fluid">
+    <div class="content">
+      <div class="span7">
+        Contains text:&nbsp; <input id="keyword" type="text" style="width: 64%"/> 
+      </div>
+      <div class="span3">
+        Rows: &nbsp; <select id="rows" style="width: 60%">
+          <option value="2">2</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+        </select> 
+      </div>
+      <div class="span2" style="text-align: right">
+        <%= link_to new_project_path, :class => "btn ajax-modal" do %>
+          <i class="icon-plus"></i>&nbsp;
+        <% end %>
+      </div>
+    </div>
   </div>
-  <br/>
-  <br/>
-  <br/>
-  <div class="panel no-top-bot-border" >
-    <div class="title">
-      Search Projects
-    </div>
-    <div class="ten-padding">
-      <table width="100%">
-        <tr>
-          <td>
-            Contains text:&nbsp; <input id="keyword" type="text" style="width: 64%"/> 
-          </td>
-          <td>
-            Rows: &nbsp; <select id="rows" style="width: 60%">
-              <option value="2">2</option>
-              <option value="5">5</option>
-              <option value="10">10</option>
-            </select> 
-          </td>
-        </tr>
-      </table>
-    </div>         
-    <div class="panel no-side-border" id="projects_list" >
-    </div>
+  <div class="panel no-side-border" id="projects_list" >
   </div>
 </div>
 <%= stylesheet_link_tag 'simplePagination', :media => 'all' %>

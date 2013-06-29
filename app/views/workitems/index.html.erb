@@ -1,55 +1,47 @@
-<div class="box-content">
-  <div class="btn-group" style="float: right;">
-    <%= link_to new_project_workitem_path, :class => 'btn' do %>
-      <i class="icon-plus"></i>&nbsp; Add Workitem
-    <% end %>
+<div class="panel no-top-bot-border" >
+  <span class="title">
+    Search Workitems
+  </span>
+  <div class="row-fluid">
+    <div class="content">
+      <div class="span4">
+        Contains text:&nbsp; <input id="keyword" type="text" style="width: 64%"/> 
+      </div>
+      <div class="span2">
+        Type: <select id="type_id" style="width: 70%">
+          <option value="">All</option>
+          <% WorkitemType.all_cached.each do |type| %>
+            <option value="<%= type.id %>"><%= type.name %></option>
+          <% end %>
+        </select>
+      </div>
+      <div class="span3">
+        Status: &nbsp;<select id="status_id" style="width: 70%">
+          <option value="">All</option>
+          <%= WorkitemStatus.all_cached.each do |status| %>
+            <option value="<%= status.id %>"><%= status.name %></option>
+          <% end %>
+        </select>
+      </div>
+      <div class="span2">
+        Rows: &nbsp; <select id="rows" style="width: 50%">
+          <option value="2">2</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+        </select> 
+      </div>
+      <div class="span1">
+        <%= link_to new_project_workitem_path, :class => 'btn' do %>
+          <i class="icon-plus"></i>
+        <% end %>
+      </div>
+    </div>
   </div>
-  <br/>
-  <br/>
-  <br/>
-  <div class="panel no-top-bot-border" >
-    <div class="title">
-      Search Workitems
-    </div>
-    <div class="ten-padding">
-      <table width="100%">
-        <tr>
-          <td>
-            Contains text:&nbsp; <input id="keyword" type="text" style="width: 64%"/> 
-          </td>
-          <td>
-            Type: <select id="type_id" style="width: 70%">
-              <option value="">All</option>
-              <% WorkitemType.all_cached.each do |type| %>
-                <option value="<%= type.id %>"><%= type.name %></option>
-              <% end %>
-            </select>
-          </td>
-          <td>
-            Status: &nbsp;<select id="status_id" style="width: 70%">
-              <option value="">All</option>
-              <%= WorkitemStatus.all_cached.each do |status| %>
-                <option value="<%= status.id %>"><%= status.name %></option>
-              <% end %>
-            </select>
-          </td>
-          <td>
-            Rows: &nbsp; <select id="rows" style="width: 60%">
-              <option value="2">2</option>
-              <option value="5">5</option>
-              <option value="10">10</option>
-            </select> 
-          </td>
-        </tr>
-      </table>
-    </div>
-    <div class="panel no-side-border" id="workitems_result" >
-    </div>
+  <div class="panel no-side-border" id="workitems_result" >
   </div>
 </div>
 <%= stylesheet_link_tag 'simplePagination', :media => 'all' %>
 <%= javascript_include_tag 'jquery.simplePagination' %>
-
 <script>
   function search(pageNumber) {
     keyword = $("#keyword").val();

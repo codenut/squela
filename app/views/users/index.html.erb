@@ -1,49 +1,43 @@
-<div class="box-content">
-  <div class="btn-group" style="float: right">
-    <a href="#create_user" class="btn" data-toggle="modal"><i class="icon-envelope"></i>&nbsp; Invite User</a>
-    <%= link_to new_user_path, :class => 'btn ajax-modal'  do %><i class="icon-plus"></i>&nbsp; Add User<%end%>
+<div class="panel no-top-bot-border" >
+  <span class="title">
+    Search Users
+  </span>
+  <div class="row-fluid">
+    <div class="content">
+      <div class="span4">
+        Name: &nbsp; <input type="text" style="width: 64%"/> 
+      </div>
+      <div class="span2">
+        Type: <select style="width: 70%">
+          <option>All</option>
+          <option>Story</option>
+          <option>Task</option>
+          <option>Defect</option>
+        </select>
+      </div>
+      <div class="span3">
+        Status: &nbsp;<select style="width: 70%">
+          <option>All</option>
+          <option>In Progress</option>
+          <option>Done</option>
+          <option>Resolved</option>
+        </select>
+      </div>
+      <div class="span2">
+        Rows: &nbsp; <select id="rows" style="width: 60%">
+          <option>2</option>
+          <option>5</option>
+          <option>10</option>
+        </select> 
+      </div>
+      <div class="span1 btn-group">
+        <a href="#create_user" class="btn" data-toggle="modal" title="Invite user"><i class="icon-envelope"></i></a>
+        <%= link_to new_user_path, :class => 'btn ajax-modal', :title => "Add user" do %><i class="icon-plus"></i><%end%>
+
+      </div>
+    </div>
   </div>
-  <br/>
-  <br/>
-  <br/>
-  <div class="panel no-top-bot-border" >
-    <div class="title">
-      Search Users
-    </div>
-    <div style="padding: 10px">
-      <table width="100%">
-        <tr>
-          <td>
-            Name: &nbsp; <input type="text" style="width: 64%"/> 
-          </td>
-          <td>
-            Type: <select style="width: 70%">
-              <option>All</option>
-              <option>Story</option>
-              <option>Task</option>
-              <option>Defect</option>
-            </select>
-          </td>
-          <td>
-            Status: &nbsp;<select style="width: 70%">
-              <option>All</option>
-              <option>In Progress</option>
-              <option>Done</option>
-              <option>Resolved</option>
-            </select>
-          </td>
-          <td>
-            Rows: &nbsp; <select id="rows" style="width: 60%">
-              <option>2</option>
-              <option>5</option>
-              <option>10</option>
-            </select> 
-          </td>
-        </tr>
-      </table>
-    </div>         
-    <div id="users_result" class="panel no-side-border" >
-    </div>
+  <div id="users_result" class="panel no-side-border" >
   </div>
 </div>
 <%= stylesheet_link_tag 'simplePagination', :media => 'all' %>

@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+    :recoverable, :rememberable, :trackable, :validatable
 
   has_one :user_detail
   has_many :projects
@@ -14,8 +14,15 @@ class User < ActiveRecord::Base
   def self.search_user_watch(workitem_id, keyword)
     join = sanitize_sql_array(["INNER JOIN user_details ON user_details.user_id = users.id 
                                 LEFT JOIN watches ON watches.user_id = users.id and workitem_id = ?", "#{workitem_id}"])
-    where = ["user_details.fullname like ? and watches.id IS ?", "%#{keyword}%", nil]
-    User.joins(join).where(where).select("users.id, user_details.fullname, users.email")
+                                where = ["user_details.fullname like ? and watches.id IS ?", "%#{keyword}%", nil]
+                                User.joins(join).where(where).select("users.id, user_details.fullname, users.email")
   end
 
+  def self.current_user=(user)
+    Thread.current[:current_user] = user
+  end
+
+  def self.current_user
+    Thread.current[:current_user] 
+  end
 end

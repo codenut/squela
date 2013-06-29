@@ -4,4 +4,5 @@ class Project < ActiveRecord::Base
 
   has_many :workitems
   validates :name, :presence => true
+
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130623081521) do
+ActiveRecord::Schema.define(:version => 20130629092639) do
 
   create_table "comments", :force => true do |t|
     t.text     "description"
@@ -34,6 +34,16 @@ ActiveRecord::Schema.define(:version => 20130623081521) do
     t.string   "url"
     t.string   "description"
     t.boolean  "is_deleted",  :default => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  create_table "streams", :force => true do |t|
+    t.string   "json_object"
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.string   "description"
+    t.boolean  "is_cleared",  :default => false
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
   end

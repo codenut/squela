@@ -15,7 +15,8 @@
     <div id="loading" style="margin:auto; text-align: center; width: 300px;margin-top:-38px; display:none">
       <span class="badge badge-warning">Loading...</span>
     </div>
-    <% if controller.controller_name == 'projects' and controller.action_name == 'show' %>
+    <% if (controller.controller_name == 'projects' and controller.action_name != 'index') or
+          (controller.controller_name == 'workitems' and controller.action_name == 'index') %>
       <%= render 'projects/sidebar' %>
       <div class="content content-with-sidebar">
       <% else %>
